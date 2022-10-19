@@ -4,11 +4,13 @@
 
 - [1.使用gorm的前置条件](#1)
   - [1.1 MySQL的安装和配置](#1.1)
+  - [1.2 Naviacte For MySQL 16](#1.2)
 - [2.gorm基本操作](#2)
   - [2.1 增](#2.1)
   - [2.2 查](#2.2)
   - [2.3 改](#2.3)
   - [2.4 删](#2.4)
+  - [2.5 gorm迁移](#2.5)
 - [3.钩子操作](#3)
 
 
@@ -44,6 +46,20 @@ mysql -u root -p              密码：123456                      更改为账�
 CREATE USER 'username1'@'%' IDENTIFIED BY 'password1';         创建用户
 GRANT ALL ON db1.* TO username1@'%' WITH GRANT OPTION;         给用户赋予权限
 ```
+
+## <span id="1.2">1.2 Naviacte For MySQL 16</span>
+[navicat for mysql 16 无限试用](https://segmentfault.com/a/1190000041490521)
+
+1.win+R打开运行,输入 regedit 打开注册表
+
+2.HKEY_CURRENT_USER\SOFTWARE\PremiumSoft\Navicat\Registration16XCS
+删除 Registration16XCS 中所有的内容, Registration16XCS不删除
+
+3.如果存在 HKEY_CURRENT_USER\SOFTWARE\PremiumSoft\Navicat\Update
+删除 Update
+
+4.HKEY_CURRENT_USER\Software\Classes\CLSID{xxx-xxx-xxx-xxx-xxx}
+找到一个包含Info的 , 删除 Info
 
 # <span id="2">2. gorm基本操作</span>
 
@@ -194,6 +210,13 @@ db.Session(&gorm.Session{AllowGlobalUpdate: true}).Model(&User{}).Update("name",
 ## <span id="2.4">2.4 删除</span>
 - 删除一条记录：Delete，删除时需要指定主键，否则会批量删除
 - 根据主键删除：
+
+## <span id="2.5">2.5 gorm迁移</span>
+迁移过程中自定义类型的迁移参考：
+
+[Go gorm| MySQL不支持数组/切片怎么办？](https://juejin.cn/post/7104191386890534920) 
+
+[GORM 字段使用自定义类型](https://blog.csdn.net/qq_41359051/article/details/104352602)
 
 
 
