@@ -1,0 +1,1 @@
+[突破go包结构访问权限，访问其它Go包中的私有函数](https://colobu.com/2017/05/12/call-private-functions-in-other-packages/)
