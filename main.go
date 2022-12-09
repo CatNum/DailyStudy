@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	var a int
@@ -11,4 +13,5 @@ func main() {
 	*i = 10
 	fmt.Println(i, &i, *i)
 	// 输出： i存储的变量的地址 i的地址 i存储的变量的值10
+
 }
