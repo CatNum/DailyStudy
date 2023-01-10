@@ -5,6 +5,8 @@
     - [1.4 json.Marshal](#1.4)
 - [2. 时间问题](#2)
   - [2..1 时区问题](#2.1)
+- [3. MongoDB](#3)
+  - [3.1 MongoDB插入](#3.1)
 
 ### <span id="1">空值异常</span>
 
@@ -44,3 +46,67 @@ fmt.Println(i, &i, *i)
 涉及时间戳转时间（time）时，同一个时刻，不同时区时间戳是一样的，但是时间（time）是不一样的。
 时间戳转时间的时候，统一转成某一个时区的时间（time）。使用time.Now()获取的是当地时间，即跟时区有关，
 需要时间的时候将time.Now()转换为时间戳再转换为对应时区的时间（time）
+
+### <span id="3">MongoDB</span>
+#### <span id="3.1">MongoDB插入</span>
+MongoDB 可以使用在 bson.D 中使用结构体嵌套字段进行插入，例子如下。注：MongoDB 使用结构体插入的时候，如果结构体字段首字母小写，则该字段不会插入。
+
+如果B中的S和A是小写开头的字段，则以下对于嵌套字段的插入会失败。
+```go
+
+package main
+
+import (
+	"context"
+	"fmt"
+	"go.mongodb.org/mongo-driver/bson"
+	"time"
+)
+
+type A struct {
+	AppInfo time.Time            `json:"app_info,omitempty" bson:"app_info,omitempty"`
+	B       *B                   `json:"b,omitempty" bson:"b,omitempty"`
+}
+
+type B struct {
+	S string `bson:"s,omitempty"`
+	A string `bson:"a,omitempty"`
+}
+
+func main() {
+	cli := NewClient()
+	coll := cli.Database("sample").Collection("test")
+	b := B{
+		S: "s1",
+		A: "a1",
+	}
+	aa := A{
+		AppInfo: time.Now(),
+		B:       &b,
+	}
+	a := bson.D{
+		{"app_info", aa.AppInfo},
+		{"b", aa.B},
+	}
+	result, err := coll.InsertOne(context.TODO(), a)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(result)
+}
+
+// NewClient 创建连接
+func NewClient() *mongo.Client {
+  ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+  defer cancel()
+  clientOptions := options.Client().ApplyURI("mongodb://192.192.100.69:27017/?directConnection=true")
+
+  client, err := mongo.Connect(ctx, clientOptions)
+  //client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://root:123456@192.192.100.85:27017"))
+  if err != nil {
+    panic(err)
+  }
+
+  return client
+}
+```
