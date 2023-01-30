@@ -1,15 +1,4 @@
 
-- [什么是“干净的代码”？](#1)
-
-
-
-
-
-
-
-
-
-
 ### <span id="1">什么是“干净的代码”？</span>
 [原文地址(英文)](https://technologywolf.net/the-top-10-tips-to-write-clean-code/)
 #### 什么是“干净的代码“
