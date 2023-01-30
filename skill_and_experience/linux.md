@@ -10,7 +10,9 @@
     博客中设置username时丢了 . 
 
 [配置golang环境]()
+
 [goLand破解](https://zhuanlan.zhihu.com/p/576073281)
+
 [ubuntu22.04设置goland快捷方式](https://blog.csdn.net/fanjufei123456/article/details/124630994)
 
 
