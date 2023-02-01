@@ -22,3 +22,6 @@
 | git commit --amend                                                  || 进入最后一次 commit 的详情信息中更改                                                                                                                      ||
 |||||
 |||||
+```shell
+git reset --soft HEAD^      # 撤销上次的 commit 
+```
