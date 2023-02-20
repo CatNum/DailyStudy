@@ -22,12 +22,12 @@ func (a *Model) GetLog(ctx *gin.Context, req types.LogReq) (int64, []pkg_models.
 	})
 	logList := make([]pkg_models.Log, 0)
 	findOpt := options.Find()
-	findOpt.SetSort(bson.D{{pkg_models.TableTagLogRecoder.OccurrenceTime, -1}})
+	findOpt.SetSort(bson.D{{pkg_models.TableTagLogRecoder.OccurrenceTime, -1}}) // pkg_models.TableTagLogRecoder.OccurrenceTime = "occurrenceTime"
 	findOpt.SetSkip(int64((req.PageNum - 1) * req.PageSize))
 	findOpt.SetLimit(int64(req.PageSize))
 	//skip := int64((req.PageNum - 1) * req.PageSize)
 	//limit := int64(req.PageSize)
-	//sort := bson.E{pkg_models.TableTagAccessControlPluginRecord.OccurrenceTime, -1}  //sort 这里老是报语法错误,使用上面的形式
+	//sort := bson.E{pkg_models.TableTagLogRecoder.OccurrenceTime, -1}  //sort 这里老是报语法错误,使用上面的形式
 	//findOpt := &options.FindOptions{Sort: sort, Skip: &skip, Limit: &limit}
 	cur, err := a.coll.Find(ctx, filter, findOpt)
 	if err != nil {
