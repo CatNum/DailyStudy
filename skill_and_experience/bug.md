@@ -1,6 +1,6 @@
 - [1. 空值异常](#1)
     - [1.1 空指针异常](#1.1)
-    - [1.2 空指针异常](#1.2)
+    - [1.2 gin中的require标签](#1.2)
     - [1.3 *gin.Context.JSON](#1.3)
     - [1.4 json.Marshal](#1.4)
 - [2. 时间问题](#2)
@@ -12,7 +12,7 @@
 - [5. 标签问题](#5)
     - [5.1 omitempty](#5.1)
 - [6. 编码问题](#6)
-  - [6.1 Redis使用中文名乱码](#6.1)
+    - [6.1 Redis使用中文名乱码](#6.1)
 
 ### <span id="1">空值异常</span>
 
@@ -32,6 +32,8 @@ fmt.Println(i, &i, *i)
 // 输出： i存储的变量的地址 i的地址 i存储的变量的值10
 }
 ```
+
+**当使用切片下表对切片进行赋值的时候，要注意切片该下表的空间地址是否初始化了，这里很容易空指针异常**
 
 #### <span id="1.2">gin中的require标签</span>
 
@@ -143,6 +145,7 @@ func NewClient() *mongo.Client {
 ### <span id="5">标签问题</span>
 
 #### <span id="5.1">omitempty</span>
+
 [omitempty讲解](https://old-panda.com/2019/12/11/golang-omitempty/)
 
 作用：该标签的作用是，在golang结构体转换为 json 或者 bson 时，忽略字段的默认值。
@@ -172,16 +175,15 @@ type Policy struct {
 
 前提：Xid为string类型，入参时不输入Xid，无 omitempty 标签。
 
-问题：前端json在转为后端结构体时，XId会被赋值为 "" ，然后如果没有 omitempty,则以 "" 作为mongodb中的唯一标识，
-，造成只能插入一条记录，因为所有的_id经过转化都是 "" ，主键唯一索引冲突导致插入失败。
+问题：前端json在转为后端结构体时，XId会被赋值为 "" ，然后如果没有 omitempty,则以 "" 作为mongodb中的唯一标识， ，造成只能插入一条记录，因为所有的_id经过转化都是 "" ，主键唯一索引冲突导致插入失败。
 
-解决方法：加上 omitempty 字段，这时候，在结构体转化为 bson 插入数据库的时候，数据库会忽略 "" ,然后自动生成
-一个唯一的 _id 来作为该记录的 _id。
+解决方法：加上 omitempty 字段，这时候，在结构体转化为 bson 插入数据库的时候，数据库会忽略 "" ,然后自动生成 一个唯一的 _id 来作为该记录的 _id。
 
 ### <span id="6">编码问题</span>
 
 #### <span id="6.1"> Redis使用中文名乱码 </span>
+
 在Redis中，使用中文名作为key会导致乱码。
 
-eg.两个hash，一个为hash1:中文:SourceIp:20230220:09:34；另一个为hash1:中文:SourceIp:20230220:09:35，
-这两个hash在Redis Desktop Manager 中会显示两个目录，而不是一个。如果把“中文”换成英文字符，就会在一个目录下，便于观看。
+eg.两个hash，一个为hash1:中文:SourceIp:20230220:09:34；另一个为hash1:中文:SourceIp:20230220:09:35， 这两个hash在Redis Desktop Manager
+中会显示两个目录，而不是一个。如果把“中文”换成英文字符，就会在一个目录下，便于观看。
