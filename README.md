@@ -11,6 +11,8 @@
     |-notesoft.md                           # 笔记选择
 |—project                               # 项目：项目示例
 |—skill_and_experience                  # 技巧和经验：go的使用技巧和一些日常总结的使用经验
+    |-design_pattern                        # 设计模式
+    |-pictures                              # 图片资源
     |-bug.md                                # 遇到的bug
     |-commit_standard.md                    # 提交规范
     |-go_code_standard.md                   # Go代码规范
