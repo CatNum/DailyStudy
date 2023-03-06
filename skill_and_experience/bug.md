@@ -197,10 +197,12 @@ type Policy struct {
 
 #### <span id="6.1">6.1 Redis使用中文名乱码 </span>
 
-在Redis中，使用中文名作为key会导致乱码。
+在Redis中，使用中文名作为key会导致乱码【在RedisDesktopManager中以及使用redis-cli下】。
 
 **eg.** 两个hash，一个为hash1:中文:SourceIp:20230220:09:34；另一个为hash1:中文:SourceIp:20230220:09:35， 这两个hash在Redis Desktop Manager
 中会显示两个目录，而不是一个。如果把“中文”换成英文字符，就会在一个目录下，便于观看。
+
+**解决方法：** 可以使用 redis-cli --raw 进入命令行模式，则中文不会乱码
 
 ### <span id="7">7 高并发问题</span>
 
