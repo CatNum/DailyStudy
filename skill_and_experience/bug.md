@@ -162,7 +162,7 @@ db.getCollection('api-log').update({}, {$rename:{"old_name":"new_name"}}, false,
 
 [omitempty讲解](https://old-panda.com/2019/12/11/golang-omitempty/)
 
-**作用：** 该标签的作用是，在golang结构体转换为 json 或者 bson 时，忽略字段的默认值，即当golang结构体中的字段为类型默认值时，转换为json或bson时忽略该字段。
+**作用：** 该标签的作用是，在golang结构体转换为 json 或者 bson 时，忽略字段的默认值，即当golang结构体中的字段的值为类型默认值时，转换为json或bson时忽略该字段。
 
 ```go
 package main
