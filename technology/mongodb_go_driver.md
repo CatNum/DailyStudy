@@ -2,6 +2,7 @@
     - [1.1 Find](#1.1)
 - [2. 关键字使用](#2)
     - [2.1 Regex模糊查询](#2.1)
+    - [2.2 Match查询](#2.2)
 
 ### <span id="1">1. 命令使用</span>
 
@@ -83,4 +84,16 @@ func GetLog(req types.RoutingAccessTotalLogReq) () {
 }
 
 
+```
+
+#### <span id="2.2">2.2 Match查询</span>
+
+时间字段的查询：
+```json
+{
+  request_time:{
+    $gte:ISODate("2023-03-13T00:00:00.035Z"),
+    $lte:ISODate("2023-03-14T00:00:00.035Z"),
+  }
+}
 ```
