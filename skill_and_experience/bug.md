@@ -151,6 +151,8 @@ db.getCollection('api-log').update({}, {$rename:{"old_name":"new_name"}}, false,
 
 **疑问：** 为什么MongoDB只在从Go到MongoDB的时候进行转换，从MongoDB查询的结果不进行转换。【这不会很别别扭吗】
 
+[参考文章](https://blog.csdn.net/u010649766/article/details/79385948)
+
 ### <span id="4">4 多线程问题</span>
 
 #### <span id="4.1">4.1 多线程解压及打包</span>
