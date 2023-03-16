@@ -60,15 +60,15 @@ func GetLog(req types.RoutingAccessTotalLogReq) () {
 
 	if req.Route != "" {
 		// 错误写法
-		filter = append(filter, bson.E{pkg_models.TableTagRouteRecord.Route, bson.E{types2.Regex, ".*" + req.Route + ".*"}})
+		filter = append(filter, bson.E{"route", bson.E{types2.Regex, ".*" + req.Route + ".*"}})
 		// 正确写法
-		filter = append(filter, bson.E{pkg_models.TableTagRouteRecord.Route, primitive.Regex{Pattern: ".*" + req.Route + ".*"}})
+		filter = append(filter, bson.E{"route", primitive.Regex{Pattern: ".*" + req.Route + ".*"}})
 	}
 	if req.Path != "" {
 		// 错误写法
-		filter = append(filter, bson.E{pkg_models.TableTagRouteRecord.PathMatch, bson.E{types2.Regex, ".*" + req.Path + ".*"}})
+		filter = append(filter, bson.E{"path", bson.E{types2.Regex, ".*" + req.Path + ".*"}})
 		// 正确写法
-		filter = append(filter, bson.E{pkg_models.TableTagRouteRecord.PathMatch, primitive.Regex{Pattern: ".*" + req.Path + ".*"}})
+		filter = append(filter, bson.E{"path", primitive.Regex{Pattern: ".*" + req.Path + ".*"}})
 	}
 
 	coll := client.Database("sample_restaurants").Collection("restaurants")
@@ -89,7 +89,7 @@ func GetLog(req types.RoutingAccessTotalLogReq) () {
 #### <span id="2.2">2.2 Match查询</span>
 
 时间字段的查询：
-```json
+```shell
 {
   request_time:{
     $gte:ISODate("2023-03-13T00:00:00.035Z"),
