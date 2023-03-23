@@ -26,6 +26,7 @@
     |-docker.md                             # docker
     |-git.md                                # git
 |—wheels                                # 轮子：使用的开发框架和组件，如gorm等
+    |-go                                    # go标准库
     |-gorm.md                               # gorm
     |-wire.md                               # wire           
 └─README.md
