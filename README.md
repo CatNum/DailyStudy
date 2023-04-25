@@ -1,6 +1,8 @@
 # DailyStudy
 
 ```
+|─experience                            # 经验：遇到的坑和错误以及对应经验总结
+    |-go项目经验                                # go项目中遇到的一些坑和经验
 |─miscellaneous_remarks                 # 杂谈：包括一些文章和博文
     |-essay                                 # 文章
         |-three_mintue                          # 三分钟 
