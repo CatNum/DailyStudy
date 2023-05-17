@@ -30,6 +30,9 @@
 |—wheels                                # 轮子：使用的开发框架和组件，如gorm等
     |-go                                    # go标准库
     |-gorm.md                               # gorm
-    |-wire.md                               # wire           
+    |-wire.md                               # wire     
+|—work_and_project_summary              # 工作和项目总结：以月和项目为单位总结自己的学习和成果
+    |-2022                                    # 2022年
+    |-2023                                    # 2023年       
 └─README.md
 ```
