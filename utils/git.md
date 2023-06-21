@@ -33,3 +33,10 @@ git push origin my-test  //将my-test分支推送到远程
 git branch --set-upstream-to=origin/my-test //将本地分支my-test关联到远程分支my-test上   
 git branch -a //查看远程分支 
 ```
+
+## 如何合并指定文件和目录
+[博客](https://juejin.cn/post/6844903598241873928)
+```text
+前提条件：当前在 v2.1.2 分支，v2.1.1 分支的 pkg/object 目录下有文件更新需要合并到 v2.1.2 分支
+使用命令 git checkout release-v2.1.1 pkg/object ，则可以完成将 pkg/object 目录从 v2.1.1 合并到 v2.1.2 
+```
