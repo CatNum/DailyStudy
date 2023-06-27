@@ -50,4 +50,8 @@ dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient exec ./t
 3. 本地Goland配置
 其中 Host 设置我对应服务器 IP, Port 为对应端口
 
+![img.png](pictures/div-3.png)
+
+![img_1.png](pictures/div-4.png)
+
 ![img.png](pictures/div-2.png)
