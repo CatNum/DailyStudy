@@ -90,6 +90,9 @@ db.coll.insertMany([            # 往coll集合中插入多条记录
 # 查询
 db.coll.find()      # 查询coll集合中所有的记录
 db.coll.find( { "x": 1 } )    # 查询coll集合中 x = 1 的所有的记录
+
+db.getCollection('api-access-log').find({request_time:{$gt:new Date('2023-06-29'),$lt:new Date('2023-06-30')}},{engine_uid:"SN10141IKZ40"}).hint("request_time-1_incr_id_-1").sort({"request_time":-1},{"incr_id":-1}).allowDiskUse()
+
 # 使用查询操作符
 db.inventory.find( { qty: { $eq: 20 } } )     # 使用 $eq 操作符
 db.inventory.find( { qty: 20 } )              # 不使用 $eq 操作符
