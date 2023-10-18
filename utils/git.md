@@ -1,5 +1,5 @@
 
-[git中的各种撤销操作](https://blog.csdn.net/weixin_39691748/article/details/113451662)
+[git中的各种撤销操作](https://segmentfault.com/a/1190000011910766)
 | [push和commit的撤销](https://blog.51cto.com/u_15328720/3384011)
 | [git区间-查看分支提交记录](https://blog.csdn.net/weixin_35193131/article/details/113491119)
 # git 常用指令
