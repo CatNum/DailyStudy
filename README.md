@@ -11,6 +11,11 @@
 - 测试阶段：bug产生的原因？如何修复？
 
 ```
+|─basic                                 # 基础：存放基础语法及文件编写的模板
+    |-markdown.md                           # md文件基础语法（不常见用法）
+    |-template.md                           # md文件编写的模板 
+|─computer_installation                 # 电脑装机：电脑装机的知识
+    |-memory.md                           # 内存篇
 |─miscellaneous_remarks                 # 杂谈：包括一些文章和博文
     |-essay                                 # 文章
         |-three_mintue                          # 三分钟 
