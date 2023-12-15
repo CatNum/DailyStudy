@@ -18,6 +18,9 @@
     |-memory.md                           # 内存篇
 |─miscellaneous_remarks                 # 杂谈：包括一些文章和博文
     |-essay                                 # 文章
+        |-cloud_native                          # 云原生 
+        |-go_basic                              # go基础 
+        |-go_super                              # go进阶 
         |-three_mintue                          # 三分钟 
     |-How_To_Clean_Code.md                  # 如何写干净的代码
     |-GoPractice.md                         # Go最佳实践
@@ -56,3 +59,4 @@
 
 
 - TODO
+- [ ] 编写内存对齐文章
