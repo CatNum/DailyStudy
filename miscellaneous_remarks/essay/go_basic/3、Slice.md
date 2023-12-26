@@ -1,4 +1,4 @@
-## 三、[Go基础] Slice切片
+## 三、[Go基础] Slice切片（文末附思维导图！！！）
 
 切片是 `Golang` 中非常独特的一种内置类型。它基于数组，比数组更灵活，使用范围更广。
 
@@ -164,7 +164,9 @@ Value: 4 Value-Addr: C00000A0C8 ElemAddr: C00000C378
 Value: 5 Value-Addr: C00000A0C8 ElemAddr: C00000C380  
 [1 2 222 4 5]
 ```
-
+----
+![3）Slice.png](picture/3）Slice.png)
+----
 > 参考链接：
 >
 > [Go 1.18 全新的切片扩容机制](https://juejin.cn/post/7101928883280150558 "Go 1.18 全新的切片扩容机制")
