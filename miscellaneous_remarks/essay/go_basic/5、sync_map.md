@@ -118,7 +118,7 @@ type entry struct {
 ![img.png](picture/5）3-1.png)
 
 其中 entry 存储的 p 也是一个指向具体数据的指针，有如下三种状态：
-![img.png](picture/5）5-1.png)
+![img.png](picture/5）3-2.png)
 
 当 p == nil 时，说明这个键值对已被删除，并且 m.dirty == nil，或 m.dirty[k] 指向该 entry。
 
@@ -141,7 +141,7 @@ type entry struct {
 
 p的状态转换如下：
 
-![img.png](picture/5）3-2.png)
+![img.png](picture/5）3-3.png)
 
 我们知道，read map 和 dirty map 中含有相同的部分；也有 read map 中有而 dirty map 中没有的，是 expunged 状态；
 也有 dirty map 中有，read map 中没有的，即新增的 entry。
