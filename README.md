@@ -22,11 +22,13 @@
         |-go_basic                              # go基础 
         |-go_super                              # go进阶 
         |-three_mintue                          # 三分钟 
+        |-virtualization                        # 虚拟化 
     |-How_To_Clean_Code.md                  # 如何写干净的代码
     |-GoPractice.md                         # Go最佳实践
     |-How_To_Ask_Question.md                # 如何问问题
 |—other                                 # 其它：技术之外的相关记录
     |-notesoft.md                           # 笔记选择
+    |-computer_usage_tips                   # 电脑使用技巧
 |—project                               # 项目：项目示例
 |—skill_and_experience                  # 技巧和经验：go的使用技巧和一些日常总结的使用经验
     |-design_pattern                        # 设计模式
