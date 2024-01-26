@@ -16,6 +16,7 @@
     |-template.md                           # md文件编写的模板 
 |─computer_installation                 # 电脑装机：电脑装机的知识
     |-memory.md                           # 内存篇
+|─ideas                                 # 想法、思考：不能成文、篇幅小的   
 |─miscellaneous_remarks                 # 杂谈：包括一些文章和博文
     |-essay                                 # 文章
         |-cloud_native                          # 云原生 
