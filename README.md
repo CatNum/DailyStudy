@@ -45,6 +45,7 @@
     |-linux.md                              # linux知识
     |-the_odd_go.md                         # Go奇技淫巧
 |—technology                            # 技术：涉及到的相关技术，如mongodb等
+    |-MySQL                                 # MySQL
     |-mongodb.md                            # MongoDB
 |—utils                                 # 工具：日常使用的一些工具
     |-apidoc.md                             # apidoc
