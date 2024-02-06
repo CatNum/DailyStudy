@@ -242,6 +242,8 @@ doublewrite 是连续的。是顺序写，开销小。完成 doublewrite 的写�
 
 ![img.png](picture/1）2.6.5-1.png)
 
+![img.png](picture/1）2.6.5-2.png)
+
 为什么不怕在数据写到共享表空间的 doublewrite 时，发生宕机导致页副本缺失？
 
 doublewrite 是为了解决数据文件本身页损坏导致的数据丢失问题，这种情况单纯靠 redo log 是无法完成修复的，因为本身数据文件在中的页就有问题。
