@@ -172,7 +172,9 @@ Master Thread 会根据数据库运行状态在以上循环中切换。
 - 异步IO（Async IO）
 - 刷新邻接页（Flush Neighbor Page）
 
-#### 2.6.1 Insert Buffer
+#### 2.6.1 插入缓冲
+
+##### 2.6.1.1 Insert Buffer
 
 B+ 树的特性决定了非聚集索引插入的离散性，需要离散的访问非聚集索引页，由于随机读取的存在导致插入操作性能下降。
 
@@ -186,7 +188,7 @@ Insert Buffer 的使用需要同时满足下面两个条件：
 
 存在一个问题：当写密集时，插入缓冲会占用过多的缓冲池内存，默认最大为 1/2，可以修改配置解决。
 
-#### 2.6.2 Change Buffer
+##### 2.6.1.2 Change Buffer
 
 在 InnoDB 1.0.x 版本开始引入 Change Buffer，可将其视为 Insert Buffer 的升级版。在这个版本中，对 DML 操作（插入、删除、更新）
 都进行缓冲，分别是：Insert Buffer、Delete Buffer、Purge buffer。
@@ -196,7 +198,7 @@ Insert Buffer 的使用需要同时满足下面两个条件：
 从 InnoDB 1.2.x 版本开始，可以通过参数 innodb_change_buffer_max_size 来控制 Change Buffer 最大使用内存的数量，默认值为 25 ，即 1/4 的缓冲池内存空间，
 该参数最大有效值是 50。
 
-#### 2.6.3 Insert Buffer 的内部实现
+##### 2.6.1.3 Insert Buffer 的内部实现
 
 Insert Buffer 是一棵 B+ 树。B+ 树就分叶子结点和非叶子结点。
 
@@ -216,14 +218,14 @@ offset 表示页所在的偏移量，占 4 字节。
 
 还有一个页类型为 Insert Buffer Bitmap 的页用来标记每个辅助索引页的可用空间。
 
-#### 2.6.4 Merge Insert Buffer
+##### 2.6.1.4 Merge Insert Buffer
 
 何时将 Insert Buffer 合并到真正的辅助索引中呢？
 - 辅助索引页被读取到缓冲池时，此时若Insert Buffer中对应的记录则合并到该辅助索引中。
 - Insert Buffer Bitmap 页追踪到该辅助索引页已无可用空间时（可用空间少于 1/32 时，进行强制合并）
 - Master Thread
 
-#### 2.6.5 两次写
+#### 2.6.2 两次写
 
 double write 可以提高数据页的可靠性。
 
@@ -245,7 +247,7 @@ doublewrite 是为了解决数据文件本身页损坏导致的数据丢失问�
 而如果在数据写到共享表空间 doublewrite 时发生宕机，导致 doublewrite 的页损伤，其实是可以通过 redo log 来进行修复的，因为我们
 本身的数据文件中的页是完好的，那么直接执行 redo log 进行重写就好了。
 
-#### 2.6.6 自适应哈希索引
+#### 2.6.3 自适应哈希索引
 
 哈希的查找时间复杂度是 O(1)，B+ 树的查找次数，取决于 B+ 树的高度，在生产环境中，一般是 3~4 层，故需要查询 3~4 次。
 
@@ -261,7 +263,7 @@ InnoDB 会自动根据访问频率和模式来自动为某些热点页建立哈�
 
 哈希索引只能用来搜索等值的查询，其他查找类型，如范围查询是不能使用哈希索引的。
 
-#### 2.6.7 异步 IO
+#### 2.6.4 异步 IO
 
 与 AIO 对应的是 Sync IO，每进行一次 IO 操作，都需要等待此次操作结束才能继续接下来的操作。
 
@@ -273,7 +275,7 @@ AIO 的另一个优势是可以进行 IO Merge 操作，也就是将多个 IO �
 
 InnoDB 1.1.x 之前，AIO 通过 InnoDB 中的代码模拟实现，之后提供了内核级别 AIO 的支持，称为 Native AIO。
 
-#### 2.6.8 刷新邻接页（Flush Neighbor Page）
+#### 2.6.5 刷新邻接页（Flush Neighbor Page）
 
 工作原理：当刷新一个脏页时，如果该页所在区的页是脏页，则会一起进行刷新，好处就是可以通过 AIO 将多个 IO 操作合并为一个，提高性能。
 
