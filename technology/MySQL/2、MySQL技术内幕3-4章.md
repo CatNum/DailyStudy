@@ -137,7 +137,7 @@ Compact 行记录是 MySQL 5.0 中引入的，设计目标是高效地存储数�
 
 固定长度 CHAR 字段在未能占用其长度空间时，会用 0x20 来填充。
 
-> MySQL 中变长字段有：VARCHAR、VARBINARY、TEXT、BLOB、JSON、多字节字符编码的 CHAR 类型（CHAR 的长度是字符长度，而不是字节长度）。
+> MySQL 中变长字段有：VARCHAR、VARBINARY、TEXT、BLOB、多字节字符编码的 CHAR 类型（CHAR 的长度是字符长度，而不是字节长度）。
 
 ##### 4.3.2 Redundant 行记录格式
 
