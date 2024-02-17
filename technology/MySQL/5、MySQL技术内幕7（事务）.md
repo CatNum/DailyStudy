@@ -92,8 +92,7 @@ binlog 和 redo log 的区别：
 redo log 日志都是以 512 字节进行存储的，包括 redo log 日志缓存、redo log 日志文件都是以块（block）的方式进行保存的，每块的大小是
 512 字节。
 
-由于 redo log 日志块的大小和磁盘扇区大小一样，都是 512 字节，因此 redo log 日志的写入可以保证原子性，不需要 doublewrite 技术。
-<font color=red>这里有个疑问：这个因果关系没弄懂</font>
+由于 redo log 日志块的大小和磁盘扇区大小一样（最小写入单元），都是 512 字节，因此 redo log 日志的写入可以保证原子性，不需要 doublewrite 技术。
 
 redo log 日志除了日志本身信息外，还包括日志块头（12 字节）、日志块尾（8 字节），所以每块实际可以存储的大小为 492 字节。
 
@@ -174,7 +173,7 @@ undo 中的历史版本。
 
 因为只有保证顺序一致，才能**保证用户根据二进制文件进行备份恢复时顺利进行，否则可能会导致事务数据的丢失。**
 
-在 MySQL 5.6 通过实现 **Binary Log Group Commit（BLGC）**的方式来解决这个问题。
+在 MySQL 5.6 通过实现 **Binary Log Group Commit（BLGC）** 的方式来解决这个问题。
 
 在 MySQL 数据库上层进行提交时首先**按顺序将其放入一个队列**中，队列中的第一个事务称为 leader，其他事务成为 follower，leader 控制着
 follower 的行为，步骤如下：
@@ -261,6 +260,27 @@ XA 事务由一个或多个资源管理器(Resource Managers)、一个事务管�
 分布式事务使用两段式提交(two- phase commit)的方式。
 1. 在第一阶段，所有参与全局事务的节点都开始准备(PREPARE)，告诉事务管理器它们准备好提交了。
 2. 在第二阶段，事务管理器告诉资源管理器执行 ROLLBACK 还是 COMMIT。如果任何一个节点显示不能提交，则所有的节点都被告知需要回滚。
+
+#### 7.5.1 内部 XA 事务
+
+之前讨论的分布式事务是外部事务。在 MySQL 数据库中还存在另外一种分布式事务，在**存储引擎与插件之间**，或者在**存储引擎与存储引擎之间**，称为**内部 XA 事务**。
+
+最常见的内部 XA 事务存在于 binlog 和 InnoDB 存储引擎存储 redo log 之间。
+
+redo log 和 bin log 共同保障了事务的持久性以及主机从机之间数据的一致性。
+
+对于事务来说，两段式提交步骤如下：
+1. **prepare 阶段：** 将 XID（内部 XA 事务的 ID） 写入到 redo log，同时将 redo log 对应的事务状态设置为 prepare，然后将 redo log 持久化到磁盘（innodb_flush_log_at_trx_commit = 1 的作用）；
+2. **commit 阶段：** 把 XID 写入到 binlog，然后将 binlog 持久化到磁盘（sync_binlog = 1 的作用），接着调用引擎的提交事务接口，
+将 redo log 状态设置为 commit，此时该状态并不需要持久化到磁盘，只需要 write 到文件系统的 page cache 中就够了，
+因为只要 binlog 写磁盘成功，就算 redo log 的状态还是 prepare 也没有关系，一样会被认为事务已经执行成功；
+
+假如在过程中数据库宕机了，有如下情况：
+- redo 写完了，binlog 没写完。这时候会去查看 binlog 中是否有当前 事务ID。
+  - 有，说明 redo 和 binlog 都刷盘了，可以提交事务。
+  - 没有，说明 redo 刷盘了，binlog 没刷盘，回滚事务。
+
+两阶段提交是以 binlog 写成功为事务提交成功的标识，因为 binlog 写成功了，就意味着能在 binlog 中查找到与 redo log 相同的 XID。
 
 ### 7.6 不好的事务习惯
 
