@@ -69,13 +69,4 @@
 
 
 - QUESTION
-- [ ] 5、MySQL技术内幕7（事务） - 为什么 redo log 日志写入不需要双写机制？
-- [ ] 最左匹配原则，具体见下面 MySQL 2  
 
-
-```text
-MySQL 2
-联合索引（a,b,c）
-explain SELECT d from a WHERE c=1 AND b=2;  // 走索引 abc
-explain SELECT a from a WHERE c=1 AND b=2;  // 不走索引 abc
-```
