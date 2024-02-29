@@ -6,6 +6,8 @@
 
 #### 1.1.1 type
 
+system > const > eq_ref > ref > range > index > ALL
+
 EXPLAIN 输出的 type 列描述了**表的连接方式**。在 JSON 格式的输出中，这些内容作为 access_type
 属性的值。下面的列表描述了连接类型，从最好的类型到最差的类型排序：
 
@@ -39,8 +41,8 @@ key 列表示MySQL实际决定使用的键（索引）。
 key 存在值的情况（版本 5.7.38）：
 
 ![img.png](picture/7-1）1.1.2-1.png)
-![img_1.png](picture/7-2）1.1.2-2.png)
-![img_2.png](picture/7-3）1.1.2-3.png)
+![img_1.png](picture/7-1）1.1.2-2.png)
+![img_2.png](picture/7-1）1.1.2-3.png)
 
 这种情况一般发生在覆盖索引条件下，possible_keys为null说明用不上索引的树形查找，但如果二
 
