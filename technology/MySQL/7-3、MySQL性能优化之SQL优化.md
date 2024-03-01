@@ -139,3 +139,15 @@ SQL 大概是 SELECT * FROM xxx WHERE uid = 123 ORDER BY update_time。
 此外还有一点你需要注意：**花样繁多的东西，你并不需要全部掌握**。比如说有很多 SQL 优化的手段可能我都没听过。因此**在面试过程中你需要注意把控节奏，要掌握整个面试的主动权**。或者说虽然**看上去面试官还在频繁问你问题，但是他问的问题都是你心中有数的，所以实际上是你在暗中控制整个面试的过程**。
 
 **而如果你不能控制好这种节奏，面试官就会随便问，那么问到你不知道的也毫不意外了。**
+
+
+> 参考链接：
+>
+> [11｜SQL优化：如何发现SQL中的问题？](https://leeshengis.com/archives/674168#google_vignette "11｜SQL优化：如何发现SQL中的问题？")
+> 
+> [19 如何根治慢 SQL？](https://learn.lianglianglee.com/%e4%b8%93%e6%a0%8f/%e8%af%b4%e9%80%8f%e6%80%a7%e8%83%bd%e6%b5%8b%e8%af%95/19%20%20%e5%a6%82%e4%bd%95%e6%a0%b9%e6%b2%bb%e6%85%a2%20SQL%ef%bc%9f.md "19 如何根治慢 SQL？")
+> 
+> [(十七)SQL优化篇：如何成为一位写优质SQL语句的绝顶高手！](https://juejin.cn/post/7164652941159170078 "(十七)SQL优化篇：如何成为一位写优质SQL语句的绝顶高手！")
+> 
+> [无效回表谁的锅？存储引擎：这事儿不赖我](https://mp.weixin.qq.com/s?__biz=Mzg5ODU2ODczMQ==&mid=2247499167&idx=1&sn=f6510663e93d0c7e5154ea6f6bde0fde&chksm=c0623aebf715b3fd057755f1062d4a2656160f2beaf890db6b8228dc11837d2bd17e26c42666&token=1429342161&lang=zh_CN#rd "无效回表谁的锅？存储引擎：这事儿不赖我")
+> 
