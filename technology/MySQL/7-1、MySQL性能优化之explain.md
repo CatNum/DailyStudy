@@ -6,7 +6,9 @@
 
 #### 1.1.1 type
 
-system > const > eq_ref > ref > range > index > ALL
+system > const > eq_ref > ref > range > index > ALL。
+
+![img.png](picture/7-1）1.1.1-1.png)
 
 EXPLAIN 输出的 type 列描述了**表的连接方式**。在 JSON 格式的输出中，这些内容作为 access_type
 属性的值。下面的列表描述了连接类型，从最好的类型到最差的类型排序：
