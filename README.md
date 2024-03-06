@@ -68,6 +68,8 @@
 - [ ] 编写内存对齐文章
 - [ ] 8、GO字符串处理
 - [ ] 6、MySQL技术内幕8（备份与恢复）
+- [ ] Go Basic channel
+- [ ] Go Basic select
 
 
 - QUESTION
