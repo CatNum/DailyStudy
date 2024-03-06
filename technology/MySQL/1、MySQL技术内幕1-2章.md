@@ -205,14 +205,14 @@ Insert Buffer 是一棵 B+ 树。B+ 树就分叶子结点和非叶子结点。
 
 非叶子结点存放的是查询的 search key（键值），构造如图：
 
-![img.png](picture/1）2.6.3-1.png)
+![img.png](picture/1）2.6.1.3-1.png)
 
 一共占用 9 字节，space 表示待插入记录所在表的表空间id，占 4 字节，marker 占 1 字节，用来兼容老版本的 Insert Buffer。
 offset 表示页所在的偏移量，占 4 字节。
 
 叶子结点结构:
 
-![img.png](picture/1）2.6.3-2.png)
+![img.png](picture/1）2.6.1.3-2.png)
 
 其中 Space、marker、offset 与非叶子结点含义相同，一共占用 9 字节，第四个字段 metadata 占据 4 字节，第五个字段是实际记录。
 所以需要额外的 13 字节的开销。
