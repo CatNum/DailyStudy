@@ -70,6 +70,8 @@
 - [ ] 6、MySQL技术内幕8（备份与恢复）
 - [ ] Go Basic channel
 - [ ] Go Basic select
+- [ ] GO Sync.Map 状态机的思考
+- [ ] MySQL redo log 持久化与 WAL 机制的前因后果
 
 
 - QUESTION
