@@ -72,6 +72,7 @@
 - [ ] Go Basic select
 - [ ] GO Sync.Map 状态机的思考
 - [ ] MySQL redo log 持久化与 WAL 机制的前因后果
+- [ ] 协程池实现研究
 
 
 - QUESTION
