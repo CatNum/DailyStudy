@@ -45,10 +45,11 @@
     |-linux.md                              # linux知识
     |-the_odd_go.md                         # Go奇技淫巧
 |—technology                            # 技术：涉及到的相关技术，如mongodb等
+    |-MongoDB                               # MongoDB
     |-MySQL                                 # MySQL
         |-article                                 # 专项文章，专门针对某个细节写的文章
         |-picture                                 # 图片
-    |-mongodb.md                            # MongoDB
+    |-Redis                                 # Redis
 |—utils                                 # 工具：日常使用的一些工具
     |-apidoc.md                             # apidoc
     |-docker.md                             # docker
