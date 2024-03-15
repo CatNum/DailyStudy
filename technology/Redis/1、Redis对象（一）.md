@@ -427,7 +427,7 @@ HASHTABLE 在之前无序集合 Set 中也有应用，和 Set 的区别在于，
 
 ![img.png](picture/1）6.4.1-3.png)
 
-## 7、底层数据结构之HASHTABLE
+## 7、底层数据结构之 HASHTABLE
 
 ### 7.1 HASH 是什么？
 
