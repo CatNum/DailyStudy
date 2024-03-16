@@ -306,11 +306,11 @@ MP-AOF，全称 Multi Part AOF，也就是多部 件AOF，通俗点说就是原�
 
 这里为了给大家加深印象，也额外说下，上面的 1.INCR.AOF，2.BASE.AOF 只是为了方便描述和记忆，他的名字其实不是这个，实际的名字长这样子：
 
-![img.png](img.png)
+![img.png](picture/5）3.6.2-2.png)
 
 至于 manifest 里面的内容，实际是长这样子：
 
-![img_1.png](img_1.png)
+![img_1.png](picture/5）3.6.2-3.png)
 
 > PS：appendonly.aof.1.base.rdb 是因为 7.0 默认开启了混合持久化，所以 base 后缀是 rdb，这里不冲突，不开启他就还是 aof。
 
