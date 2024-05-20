@@ -75,6 +75,8 @@
 - [ ] MySQL redo log 持久化与 WAL 机制的前因后果
 - [ ] 协程池实现研究
 
+- MySQL TODO
+- [ ] MySQL 之 WAL 技术 
 
 - QUESTION
 
