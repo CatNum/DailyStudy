@@ -29,11 +29,25 @@ git reset --soft HEAD^      # 撤销上次的 commit
 ```
 
 ```text
-Git创建远程分支:
+Git 创建远程分支:
 git checkout -b my-test  //在当前分支下创建my-test的本地分支分支
 git push origin my-test  //将my-test分支推送到远程
 git branch --set-upstream-to=origin/my-test //将本地分支my-test关联到远程分支my-test上   
 git branch -a //查看远程分支 
+```
+
+```text
+Git 推送本地分支到指定远程分支：
+git push <remote_name> <local_branch_name>:<remote_branch_name> // <remote_name>：远程仓库的名称，默认是origin。
+
+- 如果远程分支不存在，这条命令将会创建它。
+
+- 如果远程分支已经存在，Git默认会拒绝推送，以防止覆盖远程分支上的更改。如果你确定要强制推送（覆盖远程分支），可以使用--force选项（慎用），
+```
+
+```text
+Git 拉取远程 tag 分支代码：
+git checkout -b new-branch-name v1.0.0
 ```
 
 ## 1.1 如何合并指定文件和目录
