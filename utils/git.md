@@ -79,3 +79,7 @@ git checkout -b new-branch-name v1.0.0
 > 参考链接：
 >
 > [git奇淫技巧：如何修改commit历史记录的名字(我的github头像怎么没了😱)](https://juejin.cn/post/7256346521644548151 "git奇淫技巧：如何修改commit历史记录的名字(我的github头像怎么没了😱)")
+
+## 1.3 如何将 Github 的提交中的用户名和你的 Github 账号关联起来
+
+当你在本地创建提交并将其推送到 GitHub 时，Git 会使用你的配置中的用户名和电子邮件地址作为提交的作者信息。GitHub 会根据提交的电子邮件地址来识别并关联这个提交到你的 GitHub 账号。
