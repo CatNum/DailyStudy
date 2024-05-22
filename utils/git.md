@@ -74,12 +74,25 @@ git checkout -b new-branch-name v1.0.0
 
 解决方法：[在 HTTPS 端口使用 SSH](https://docs.github.com/zh/authentication/troubleshooting-ssh/using-ssh-over-the-https-port "在 HTTPS 端口使用 SSH")
 
-## 1.2 如何更新提交信息中的用户名和邮箱，以及如何批量修改
+## 2.2 如何更新提交信息中的用户名和邮箱，以及如何批量修改
 
 > 参考链接：
 >
 > [git奇淫技巧：如何修改commit历史记录的名字(我的github头像怎么没了😱)](https://juejin.cn/post/7256346521644548151 "git奇淫技巧：如何修改commit历史记录的名字(我的github头像怎么没了😱)")
 
-## 1.3 如何将 Github 的提交中的用户名和你的 Github 账号关联起来
+## 2.3 如何将 Github 的提交中的用户名和你的 Github 账号关联起来
 
 当你在本地创建提交并将其推送到 GitHub 时，Git 会使用你的配置中的电子邮件地址作为提交的作者信息。GitHub 会根据提交的电子邮件地址来识别并关联这个提交到你的 GitHub 账号。
+
+## 2.4 Windows 环境下，将 Goland  的 Terminal 设置为 git bash，中文乱码问题部分解决 
+
+1. 进入 Git 安装目录的 etc 目录下
+2. 打开 bash.bashrc 文件，将如下文字加入
+```text
+export LANG="zh_CN.UTF-8"
+export LC_ALL="zh_CN.UTF-8"
+```
+
+> 参考链接：
+>
+> [Windows系统下，GoLand中选定Git Bash终端，中文乱码的解决对策 转载](https://blog.51cto.com/u_15080026/4329974 "Windows系统下，GoLand中选定Git Bash终端，中文乱码的解决对策 转载")
