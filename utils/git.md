@@ -74,3 +74,8 @@ git checkout -b new-branch-name v1.0.0
 
 解决方法：[在 HTTPS 端口使用 SSH](https://docs.github.com/zh/authentication/troubleshooting-ssh/using-ssh-over-the-https-port "在 HTTPS 端口使用 SSH")
 
+## 1.2 如何更新提交信息中的用户名和邮箱，以及如何批量修改
+
+> 参考链接：
+>
+> [git奇淫技巧：如何修改commit历史记录的名字(我的github头像怎么没了😱)](https://juejin.cn/post/7256346521644548151 "git奇淫技巧：如何修改commit历史记录的名字(我的github头像怎么没了😱)")
