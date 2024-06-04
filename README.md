@@ -54,7 +54,7 @@
 |—utils                                 # 工具：日常使用的一些工具
     |-apidoc.md                             # apidoc
     |-docker.md                             # docker
-    |-git.md                                # git
+    |-Git                                   # Git
 |—wheels                                # 轮子：使用的开发框架和组件，如gorm等
     |-go                                    # go标准库
     |-gorm.md                               # gorm
