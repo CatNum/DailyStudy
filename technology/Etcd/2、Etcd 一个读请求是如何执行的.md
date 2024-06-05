@@ -4,7 +4,7 @@
 ### 1、基础架构
 
 功能模块：
-![img.png](picture/2）1-1.png)
+![功能模块](picture/2）1-1.png)
 
 etcd 默认读模式（线性读）的执行流程：
 ![etcd默认读模式（线性读）的执行流程](picture/2）1-2.png)
@@ -73,7 +73,7 @@ type keyIndex struct {
 
 // generation contains multiple revisions of a key.
 type generation struct {
-ver     int64
+ver     int64           // key 的修改次数
 created revision        // 在该生命周期内，第一次 put 创建时的版本号
 revs    []revision      // 版本更替记录
 }
@@ -88,7 +88,15 @@ generations:
     [{8, 0}, {10, 0}]               // 第二个生命周期
 ```
 
-在 Etcd 中，内存中的 treeIndex 存储了 [key，revision] 的对应关系，而 [revision，{key，value}] 存储在磁盘上的 boltdb 上，boltdb 是个基于 B+ tree 实现的 key-value 键值库，支持事务，提供 Get/Put 等简易 API 给 etcd 操作。
+在 Etcd 中，内存中的 treeIndex（B 树） 存储了 [key，revision] 的对应关系，而 [revision，{key，value}] 存储在磁盘上的 boltdb 上，boltdb 是个基于 B+ tree 实现的 key-value 键值库，支持事务，提供 Get/Put 等简易 API 给 etcd 操作。
+
+treeIndex 的每一个节点都是一个 keyIndex 结构。
+
+##### 3.2.2 读流程
+
+1. 根据客户端指定的 key 和 revision 信息，确定要查询的 revision
+2. 根据 revision 去 buffer 中查询（二分查找），存在则返回
+3. 不存在则查询 boltdb 中的数据
 
 
 
@@ -99,7 +107,3 @@ generations:
 > [MVCC 在 etcd 中的实现](https://blog.betacat.io/post/mvcc-implementation-in-etcd/ "MVCC 在 etcd 中的实现")
 > 
 > [《kubernetes 系列》7. etcd 是如何基于 MVCC 实现 key 的历史变更的？ ](https://www.cnblogs.com/traditional/p/17449105.html "《kubernetes 系列》7. etcd 是如何基于 MVCC 实现 key 的历史变更的？ ")
-> 
-> [英文博客](URL "英文博客")
-> 
-> [英文博客](URL "英文博客")
