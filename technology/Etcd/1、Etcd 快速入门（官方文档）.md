@@ -93,6 +93,13 @@ etcd Version: 3.5.13
 2. 在另一个终端，执行 `etcdctl put greeting "Hello, etcd"` 添加一个键值数据
 3. 执行 `etcdctl get greeting` 获取键值数据
 
+
+### 5、Etcd 应用场景
+
+Etcd 是一个分布式的，一致的 key-value 存储，适用于以下场景：
+- 共享配置
+- 服务发现
+
 > 参考链接：
 >
 > [Supported platforms](https://etcd.io/docs/v3.5/op-guide/supported-platform/ "Supported platforms")
