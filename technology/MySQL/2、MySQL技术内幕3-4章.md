@@ -76,7 +76,7 @@ InnoDB 中，表都是根据**主键顺序**组织存放点额，这种存储方
 
 所有数据都被**逻辑地**存放在一个空间，称为表空间。表空间又由段（segment）、区（extent）、页（page）组成。如下图所示：
 
-![img.png](picture/2）4.2-1.png)
+![img.png](pictures/2）4.2-1.png)
 
 ##### 4.2.1 表空间
 
@@ -116,7 +116,7 @@ InnoDB 提供了 Compact 和 Redundant 两种格式来存放行记录数据。Re
 
 Compact 行记录是 MySQL 5.0 中引入的，设计目标是高效地存储数据。一个页中存放的行数据越多，其性能就越高。Compact 行记录的存储格式如下：
 
-![img.png](picture/2）4.3.1-1.png)
+![img.png](pictures/2）4.3.1-1.png)
 
 其中的字段含义如下：
 - 变长字段长度列表：就是行记录中非 NULL 的变长字段的大小的列表，并且按照列的顺序逆序放置。
@@ -155,7 +155,7 @@ VARCHAR（N） 中的 N 指的是字符的长度，而上文中说 VARCHAR 的�
 MySQL 官方手册中定义的 65535 长度是指所有 VARCHAR 列的长度总和，如果总和超过这个长度，依然无法创建。
 
 InnoDB 的数据一般都是存放在 B-tree node 中，但是当发生行溢出时，数据存放在页类型为 Uncompress BLOB 页中。对于行溢出数据，存储格式如下：
-![img.png](picture/2）4.3.3-1.png)
+![img.png](pictures/2）4.3.3-1.png)
 
 那多长的 VARCHAR 是保存在单个数据页中的，从多长开始会保存在 BLOB 页中呢？ 
 
@@ -173,7 +173,7 @@ InnoDB 1.0.x 版本引入了新的文件格式（file format，用户可以理�
 
 新的两种记录格式对于行溢出的情况采用了完全的行溢出方式，在数据页中只存放了 20 个字节的指针，实际的数据都存放在了 Off Page 中，如下：
 
-![img.png](picture/2）4.3.4-1.png)
+![img.png](pictures/2）4.3.4-1.png)
 
 Compressed 行记录格式的另一个功能是：存储在其中的行数据会以 zlib 的算法进行压缩，所以对于 BLOB、TEXT、VARCHAR 这类大长度类型的数据
 能够进行非常有效的存储。
@@ -219,7 +219,7 @@ Supremum 记录的键值是一个虚拟值，比实际数据的键值都要大�
 
 结构如下：
 
-![img.png](picture/2）4.5-1.png)
+![img.png](pictures/2）4.5-1.png)
 
 B+ 树索引本身并不能找到具体的一条记录，能找到只是该记录所在的页。数据库把页载入到内存中，然后通过 Page Directory 再进行二叉查找。
 
@@ -229,7 +229,7 @@ B+ 树索引本身并不能找到具体的一条记录，能找到只是该记�
 
 InnoDB 将 1.0.x 版本之前的文件格式（file format）定义为 Antelope，将这个版本支持的文件格式定义为 Barracuda，关系如下：
 
-![img.png](picture/2）4.6-1.png)
+![img.png](pictures/2）4.6-1.png)
 
 #### 4.7 约束
 

@@ -7,7 +7,7 @@
 跳表是 Redis 有序集合 ZSet 底层的数据结构，也是 ZSet 的灵魂所在。
 
 跳表本质上还是链表，普通链表结构如下：
-![img.png](picture/2）1.1-1.png)
+![img.png](pictures/2）1.1-1.png)
 
 优点：
 
@@ -25,7 +25,7 @@ O(N)，N 是节点个数。
 - 跳表在链表的基础上，**给链表增加了多级的索引**，**通过索引可以一次实现多个节点的跳跃**，提高性能。
 
 跳表的结构：
-![img_1.png](picture/2）1.1-2.png)
+![img_1.png](pictures/2）1.1-2.png)
 
 图中的每个节点不止只有一层，在遍历的时候，可以一次走多个节点。理论上，层次越高平均步长越大，但并不完全像示意图一样是绝对均衡的，节点的层高其实是概率随机的。
 
@@ -45,7 +45,7 @@ O(N)，N 是节点个数。
 - 然后，构造一个新的节点，这里**我们假设节点层高随机到 3**，具体随机算法我们后面会介绍，目前不用太关注
 - 最后，**将各层链表补齐**，其实就是在每一层进行链接，效果如图
 
-![img.png](picture/2）1.1-3.png)
+![img.png](pictures/2）1.1-3.png)
 
 标准的跳表（Redis 不是用的标准的跳表，下面会讲）有如下限制：
 
@@ -59,7 +59,7 @@ Redis 的跳表。
 
 我们直接看这个示意图，score 可以重复并且我们的每个节点多了一下回退指针。
 
-![img.png](picture/2）1.2-1.png)
+![img.png](pictures/2）1.2-1.png)
 
 Redis 跳表单个节点的定义：
 
@@ -84,7 +84,7 @@ typedef struct zskiplistNode {
     - forward：指向该层下个能跳到的节点
     - span：记录了距离下个节点的步数
 
-![img.png](picture/2）1.2-2.png)
+![img.png](pictures/2）1.2-2.png)
 
 ### 1.3 Redis 跳表单个节点有几层？
 
@@ -115,7 +115,7 @@ ZSet 就是有序集合，也叫 Sorted Set，是一组按关联积分有序的�
 
 ### 2.3 常用操作
 
-![img.png](picture/2）2.3-1.png)
+![img.png](pictures/2）2.3-1.png)
 
 ### 2.4 底层实现
 
@@ -127,7 +127,7 @@ ZSet 底层编码有两种
 - 一种是 SKIPLIST + HASHTABLE，这种编码方式**查询性能更优**，字典和跳表都指向同一份数据。
 
 ZIPLIST 结构示意：
-![img.png](picture/2）2.4.1-1.png)
+![img.png](pictures/2）2.4.1-1.png)
 
 如果满足如下规则，ZSet 就用 ZIPLIST 编码：
 
@@ -137,13 +137,13 @@ ZIPLIST 结构示意：
 两个条件任何一条不满足，编码结构就用 SKIPLIST + HASHTABLE。
 
 SKIPLIST 结构示意：
-![img_1.png](picture/2）2.4.1-2.png)
+![img_1.png](pictures/2）2.4.1-2.png)
 
 SKIPLIST 是一种可以快速查找的多级链表结构，通过 SKIPLIST 可以快速定位到数据所在。它的排名操作、范围查询性能都很高，
 
 除了 SKIPLIST，Redis 还使用了 HASHTABLE 来配合查询，这样可以在 O(1) 时间复杂度查到成员的分数值。
 
-![img_2.png](picture/2）2.4.1-3.png)
+![img_2.png](pictures/2）2.4.1-3.png)
 
 ### 2.5 面试问题
 

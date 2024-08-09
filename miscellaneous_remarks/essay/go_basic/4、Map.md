@@ -197,7 +197,7 @@ type bmap struct {
 ```
 
 整体数据结构如图：
-![整体数据结构图](picture/4）3.2-1.png)
+![整体数据结构图](pictures/4）3.2-1.png)
 
 在 hmap 数据结构中有一个字段 `B` ，这个字段关系到我们存储位置的确定，map 容量的确定，但是很多博客没有讲清楚 B 是如何确定的，这里我们进行一下简单的讲解，
 方便下文内容更好的理解。
@@ -230,7 +230,7 @@ func overLoadFactor(count int, B uint8) bool {
 
 接下来我们看看 bmap 数据结构的图示：
 
-![bmap 数据结构图](picture/4）3.2-2.png)
+![bmap 数据结构图](pictures/4）3.2-2.png)
 
 其中 HOB Hash 指的就是 高位哈希（top hash）。 注意到 key 和 value 是各自放在一起的，
 并不是 key/value/key/value/... 这样的形式。源码里说明这样的好处是在某些情况下可以省略掉 padding 字段， 节省内存空间。

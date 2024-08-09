@@ -42,7 +42,7 @@
 - 当原 `cap(slice) < 1024` 的时候，新 `slice` 容量变成原来的 `2` 倍；
 - 当原 `cap(slice) > 1024`，进入一个循环，每次容量变成原来的 `1.25` 倍,直到大于期望容量。
 
-![img.png](picture/3）2.3.1.png)
+![img.png](pictures/3）2.3.1.png)
 
 #### 2.3.2 `Go1.18` 之后
 
@@ -50,7 +50,7 @@
 - 当原 `cap(slice) < threshold` 的时候，新 `slice` 容量变成原来的 `2` 倍；
 - 当原 `cap(slice) > threshold` 的时候，进入一个循环，每次容量增加`（旧容量+3*threshold）/4`。
 
-![img.png](picture/3）2.3.2.png)
+![img.png](pictures/3）2.3.2.png)
 
 ### 2.4 `nil`切片和`len(slice)==0`的切片的区别
 
@@ -165,7 +165,7 @@ Value: 5 Value-Addr: C00000A0C8 ElemAddr: C00000C380
 [1 2 222 4 5]
 ```
 ----
-![3）Slice.png](picture/3）Slice.png)
+![3）Slice.png](pictures/3）Slice.png)
 ----
 > 参考链接：
 >
