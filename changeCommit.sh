@@ -1,4 +1,5 @@
-  # changeCommit.sh
+# changeCommit.sh
+# 批量修改历史阶提交中的 username 和 email 信息
   git filter-branch -f --commit-filter '
     if [ "GIT_AUTHOR_NAME" = "CatNum" ];
     then
