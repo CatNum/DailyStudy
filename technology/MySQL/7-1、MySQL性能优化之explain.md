@@ -8,7 +8,7 @@
 
 system > const > eq_ref > ref > range > index > ALL。
 
-![img.png](picture/7-1）1.1.1-1.png)
+![img.png](pictures/7-1）1.1.1-1.png)
 
 EXPLAIN 输出的 type 列描述了**表的连接方式**。在 JSON 格式的输出中，这些内容作为 access_type
 属性的值。下面的列表描述了连接类型，从最好的类型到最差的类型排序：
@@ -42,9 +42,9 @@ key 列表示MySQL实际决定使用的键（索引）。
 除了参考文章《MySQL通过explain分析时，possible_keys为null,key为所建索引的原因》中的情况，如下情况也会出现 possible_key 为空，但是
 key 存在值的情况（版本 5.7.38）：
 
-![img.png](picture/7-1）1.1.2-1.png)
-![img_1.png](picture/7-1）1.1.2-2.png)
-![img_2.png](picture/7-1）1.1.2-3.png)
+![img.png](pictures/7-1）1.1.2-1.png)
+![img_1.png](pictures/7-1）1.1.2-2.png)
+![img_2.png](pictures/7-1）1.1.2-3.png)
 
 这种情况一般发生在覆盖索引条件下，possible_keys为null说明用不上索引的树形查找，但如果二 级索引包含了所有要查找的数据，
 二级索引往往比聚集索引小，所以mysql可能会选择顺序遍历这个二级索引直接返回，但没有发挥树形查找优势，所以就出现了这个情况。

@@ -16,7 +16,7 @@ gitpull
 
 下图为传统服务器、IaaS、PaaS、SaaS的对比图。
 
-![3）3-1.png](picture/3）3-1.png)
+![3）3-1.png](pictures/3）3-1.png)
 
 下面我们来讲解一下这些概念。
 
@@ -67,7 +67,7 @@ MEAN 堆栈、Java SpringMVC 等。
 
 例如：以下为阿里云ECS云服务器购买时可以选择的预装应用。
 
-![3）4-1.png](picture/3）4-1.png)
+![3）4-1.png](pictures/3）4-1.png)
 
 ## 4、 FaaS（Function as a service）：函数即服务
 

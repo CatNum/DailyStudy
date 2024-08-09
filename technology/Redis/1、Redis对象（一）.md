@@ -49,7 +49,7 @@ String 就是字符串，它是 Redis 中最基本的数据对象，**最大为 
 
 ### 2.3 常用操作
 
-![img.png](picture/1）2.2-1.png)
+![img.png](pictures/1）2.2-1.png)
 
 - set 命令会覆盖 key 的 value，同时抹除 key 上的过期时间
 
@@ -59,7 +59,7 @@ String 就是字符串，它是 Redis 中最基本的数据对象，**最大为 
 
 String看起来简单，但实际有三种编码方式，如下图所示：
 
-![img.png](picture/1）2.4.1-1.png)
+![img.png](pictures/1）2.4.1-1.png)
 
 - INT 编码：这个很好理解，就是存一个整型，可以用 long 表示的整数就以这种编码存储;
 - EMBSTR 编码：如果**字符串小于等于阈值字节**，使用 EMBSTR 编码；
@@ -75,11 +75,11 @@ EMBSTR 设计为只读，任何写操作之后 EMBSTR 都会变成 RAW，**理�
 
 EMBSTR 内存（下图中 alloc 应该是 45，该结构不预留内存）：
 
-![img.png](picture/1）2.4.1-2.png)
+![img.png](pictures/1）2.4.1-2.png)
 
 RAW 内存：
 
-![img_1.png](picture/1）2.4.1-3.png)
+![img_1.png](pictures/1）2.4.1-3.png)
 
 随着我们的操作，编码可能会转换：
 
@@ -148,7 +148,7 @@ List 作为一个列表存储，属于比较底层的数据结构，可以使用
 del 命令同步删除命令，会阻塞客户端，直到删除完成。 unlink 命令是异步删除命令，
 只是取消 Key 在键空间的关联，让其不再能查到，删除是异步进行，所以**不会阻塞客户端**。
 
-![img.png](picture/1）3.3-1.png)
+![img.png](pictures/1）3.3-1.png)
 
 ### 3.4 底层实现
 
@@ -156,7 +156,7 @@ del 命令同步删除命令，会阻塞客户端，直到删除完成。 unlink
 
 3.2 版本之前，List 对象有两种编码方式，一种 ZIPLIST，另一种是 LINKEDLIST。
 
-![img.png](picture/1）3.4.1-1.png)
+![img.png](pictures/1）3.4.1-1.png)
 
 当满足如下条件时，用 ZIPLIST 编码，如果不满足 ZIPLIST 编码的条件，则使用 LINKEDLIST 编码：
 
@@ -168,7 +168,7 @@ ZIPLIST 底层用压缩列表实现。
 假设列表中包含"hello"、"niuniu"、 "mart"三个元素，两种编码方式结构如下：
 
 ZIPLIST 编码示意如下：
-![img.png](picture/1）3.4.1-2.png)
+![img.png](pictures/1）3.4.1-2.png)
 
 ZIPLIST 编码**内存排列得很紧凑，可以有效节约内存空间。**
 
@@ -179,7 +179,7 @@ ZIPLIST 编码**内存排列得很紧凑，可以有效节约内存空间。**
 一般经验值是，用 ziplist 大概只占有原本的 1/3 的内存，能省一大半内存，还是很可观的(但也要知道使用 ziplist 会牺牲一些速度)
 
 LINKEDLIST 编码示意如下：
-![img_1.png](picture/1）3.4.1-3.png)
+![img_1.png](pictures/1）3.4.1-3.png)
 
 LINKEDLIST 编码下，数据是以**链表的形式**连接在一起，实际上**删除更为灵活**，但是内存不如 ZIPLIST 紧凑，所以*
 *只有在列表个数或节点数据长度比较大的时候**，
@@ -193,11 +193,11 @@ LINKEDLIST 是为了数据多时提高更新效率，节点非常多的情况，
 
 3.2 版本就引入了 QUICKLIST。QUICKLIST 其实就是 ZIPLIST 和 LINKEDLIST 的结合体。
 
-![img.png](picture/1）3.4.1-4.png)
+![img.png](pictures/1）3.4.1-4.png)
 
 LINKEDLIST 原来是单个节点，只能存一个数据，现在单个节点存的是一个 ZIPLIST，即多个数据。
 
-![img.png](picture/1）3.4.1-5.png)
+![img.png](pictures/1）3.4.1-5.png)
 
 这种方案其实是用 ZIPLIST、LINKEDLIST 综合的结构，取代二者本身。
 
@@ -237,7 +237,7 @@ ZIPLIST 本身存在一个**连锁更新的问题**，所以 Redis 7.0 之后，
 
 比如这就是有 3 个节点的 ziplist 结构：
 
-![img.png](picture/1）4.3-1.png)
+![img.png](pictures/1）4.3-1.png)
 
 - zlbytes：表示该 ZIPLIST **一共占了多少字节数**，这个数字是包含 zlbytes 本身占据的字节的。
 - zltail：**ZIPLIST 尾巴节点相对于 ZIPLIST 的开头（起始指针）偏移的字节数**。
@@ -313,7 +313,7 @@ ZIPLIST 的更新就是增加、删除数据，ZIPLIST 提供头尾增减的能�
 
 大家可能会比较担心连锁更新带来的性能问题，但在实际的业务中，很少会刚好遇到需要迭代更新超过 2 个节点的情况，所以 ZIPLIST 更新平均时间复杂度，还是可以看作 O(N)。不过，ZIPLIST 最大的问题还是连锁更新导致性能不稳定。
 
-![img.png](picture/1）4.5-1.png)
+![img.png](pictures/1）4.5-1.png)
 
 ### 4.6 LISTPACK 优化（5.0 引入）
 
@@ -351,7 +351,7 @@ element-tot-len 所占用的每个字节的第一个 bit 用于标识是否结�
 举个例子：
 如果上个节点的 element-tot-len 为 00000001 10000100，每个字节第一个 bit 标志是否结束，所以这里的 element-tot-len 一共就两个字节，大小为 0000001 0000100，即 132 字节。
 
-![img.png](picture/1）4.6.5-1.png)
+![img.png](pictures/1）4.6.5-1.png)
 
 ## 5、Redis 对象之 Set
 
@@ -369,24 +369,24 @@ Redis 的 Set 是一个不重复、无序的字符串集合，这里额外说明
 - SREM 删除元素。
 - DEL 可以删除一个 Set 对象。
 
-![img.png](picture/1）5.3-1.png)
+![img.png](pictures/1）5.3-1.png)
 
 ### 5.4 底层实现
 
 #### 5.4.1 编码方式
 
-![img.png](picture/1）5.4.1-1.png)
+![img.png](pictures/1）5.4.1-1.png)
 
 - 如果集群元素都是整数，且元素数量不超过 512 个，就可以用 INTSET 编码
 - 不满足 INTSET 的条件，就需要用 HASHTABLE
 
 INTSET 编码结构：
-![img.png](picture/1）5.4.1-2.png)
+![img.png](pictures/1）5.4.1-2.png)
 
 INTSET 排列比较紧凑，**内存占用少**，但是查询时需要二分查找。
 
 HASHTABLE 编码结构：
-![img_1.png](picture/1）5.4.1-3.png)
+![img_1.png](pictures/1）5.4.1-3.png)
 
 HASHTABLE 查询一个元素的性能很高，能 O(1) 时间就能找到一个元素是否存在。
 
@@ -405,7 +405,7 @@ Redis 中每个 hash 可以存储 2(32)-1 键值对（40多亿）。
 
 ### 6.3 常用操作
 
-![img.png](picture/1）6.3-1.png)
+![img.png](pictures/1）6.3-1.png)
 
 ### 6.4 底层实现
 
@@ -417,15 +417,15 @@ Hash 底层有两种编码结构，一个是压缩列表，一个是 HASHTABLE�
 - Hash 对象保存的所有值和键的长度都小于 64 字节；
 - Hash 对象元素个数少于 512 个。
 
-![img.png](picture/1）6.4.1-1.png)
+![img.png](pictures/1）6.4.1-1.png)
 
 ZIPLIST 之前有讲解过，其实就是在数据量较小时将数据紧凑排列，对应到 Hash，就是将 filed-value 当作 entry 放入 ZIPLIST，结构如下：
 
-![img.png](picture/1）6.4.1-2.png)
+![img.png](pictures/1）6.4.1-2.png)
 
 HASHTABLE 在之前无序集合 Set 中也有应用，和 Set 的区别在于，在 Set 中 value 始终为 NULL，但是在 Hash 中，是有对应的值的。
 
-![img.png](picture/1）6.4.1-3.png)
+![img.png](pictures/1）6.4.1-3.png)
 
 ## 7、底层数据结构之 HASHTABLE
 
@@ -447,7 +447,7 @@ typedef struct dictht {
     unsigned long used;
 } dictht;
 ```
-![img.png](picture/1）7.2-1.png)
+![img.png](pictures/1）7.2-1.png)
 
 最外层是一个封装的 dictht 结构，其中字段含义如下：
 - table：指向**实际 hash 存储**。存储可以看做**一个数组**，所以是 *table 的表示，在 C 语言中 *table 可以表示一个数组。
@@ -474,7 +474,7 @@ typedef struct dict {
 
 可以看到 dict 结构里面，包含了 2 个 dictht 结构，也就是 2 个 HASHTABLE 结构。dictEntry 是链表结构，也就是**用拉链法解决 Hash 冲突**，用的是**头插法**
 
-![img.png](picture/1）7.3-1.png)
+![img.png](pictures/1）7.3-1.png)
 
 实际上平常使用的就是一个 HASHTABLE，在触发扩容之后，就会两个 HASHTABLE 同时使用，详细过程是这样的：
 
