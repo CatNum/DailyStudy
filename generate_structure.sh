@@ -66,12 +66,14 @@ print_dir_structure() {
                 else
                     # 打印文件和第一行注释
                     local file_comment=$(head -n1 "$item" | cut -c2-) # 去除行首的#
-                    if [[ -n "$file_comment" ]]; then
-                        local file_output="${sub_indent}|- $(basename "$item")"
-                        spaces=$((100 - ${#file_output} - ${#file_comment}))
-                        padding=$(printf '%*s' "$spaces")
-                        echo -e "${file_output}${padding}# ${file_comment}" >> $OUTPUT_DIR_NAME
+                    if [[ -z "$file_comment" ]]; then
+                       # 如果 file_comment 为空，则设置为 "No comment provided"
+                       file_comment="No comment provided"
                     fi
+                    local file_output="${sub_indent}|- $(basename "$item")"
+                    spaces=$((100 - ${#file_output} - ${#file_comment}))
+                    padding=$(printf '%*s' "$spaces")
+                    echo -e "${file_output}${padding}# ${file_comment}" >> $OUTPUT_DIR_NAME
                 fi
             fi
         done
