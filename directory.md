@@ -3,7 +3,7 @@
 └─ DailyStudy                                                                    # No comment provided
     └─ basic                                                                     # No comment provided
         |- markdown.md                                                                    #  [ ] 复选框语法
-        |- template.md                                                           # No comment provided
+        |- template.md                                                                # # 一、如何设计友好的标识符
     |- changeCommit.sh                                                              #  changeCommit.sh
     └─ computer_installation                                                     # No comment provided
         |- memory.md                                                                #  [装机 | 配置升级] 内存篇
@@ -96,6 +96,7 @@
             |- 7-4、MySQL性能优化.md                                                       # # 一、MySQL 性能调优
             └─ article                                                           # No comment provided
                 |- 1、MySQL索引之or到底走不走索引.md                                        # No comment provided
+                |- 2、一文讲穿MySQL.md                                                # No comment provided
             └─ MySQL 知识精炼                                                        # No comment provided
                 |- 1、基础架构.md                                                     # No comment provided
         |- pdf.md                                                                   #  [1. PDF 前言](#1)
@@ -113,6 +114,7 @@
                 └─ 第一部分：数据结构与对象                                                  # No comment provided
     └─ utils                                                                     # No comment provided
         |- apidoc.md                                                               #  [apidoc 的使用](#1)
+        |- cursor.md                                                             # No comment provided
         |- dlv+goland远程调试.md                                                      #  dlv + Goland 远程调试
         |- docker.md                                                             # No comment provided
         └─ Git                                                                   # No comment provided
