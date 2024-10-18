@@ -2,7 +2,7 @@
 
 ## 脚本说明：递归遍历当前目录，生成目录结构，并输出到文件。
 ## 使用说明：
-#     - 目录：查看 commend.txt 文件，作为注释
+#     - 目录：查看 comment.txt 文件，作为注释
 #     - 文件：查看文件开头第一行，作为注释
 
 # 初始化开始时间
@@ -10,7 +10,7 @@ start_time=$(date +%s)
 
 # 定义常量
 readonly OUTPUT_DIR_NAME="directory.md"
-filtered_files=("pictures" "aa.md")
+filtered_files=("pictures" "aa.md" "comment.txt")
 
 # 定义一个函数来打印目录结构
 print_dir_structure() {
