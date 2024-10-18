@@ -3,14 +3,14 @@
 ## 脚本说明：递归遍历当前目录，生成目录结构，并输出到文件。
 ## 使用说明：
 #     - 目录：查看 comment.txt 文件，作为注释
-#     - 文件：查看文件开头第一行，作为注释
+#     - 文件：读取文件的第一行数据，并去除行首的 # 符号（如果存在），作为注释。
 
 # 初始化开始时间
 start_time=$(date +%s)
 
 # 定义常量
 readonly OUTPUT_DIR_NAME="directory.md"
-filtered_files=("pictures" "aa.md" "comment.txt")
+filtered_files=("pictures" "aa.md" "comment.txt")   # 过滤文件列表（跳过不扫描）
 
 # 定义一个函数来打印目录结构
 print_dir_structure() {
