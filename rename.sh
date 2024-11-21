@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git filter-branch --env-filter -f '
+git filter-branch -f --env-filter '
 
 OLD_EMAIL="1660470561@qq.com"
 OLD_NAME="CatNum"
@@ -18,12 +18,12 @@ then
     export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
 fi
 
-if [ "GIT_COMMITTER_NAME" = "$OLD_EMAIL" ]
+if [ "GIT_COMMITTER_NAME" = "OLD_NAME" ]
 then
     export GIT_COMMITTER_NAME="$CORRECT_NAME"
     export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
 fi
-if [ "GIT_AUTHOR_NAME" = "$OLD_EMAIL" ]
+if [ "GIT_AUTHOR_NAME" = "OLD_NAME" ]
 then
     export GIT_AUTHOR_NAME="$CORRECT_NAME"
     export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
