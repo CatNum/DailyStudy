@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git filter-branch --env-filter '
+git filter-branch --env-filter -f '
 
 OLD_EMAIL="1660470561@qq.com"
 OLD_NAME="CatNum"
