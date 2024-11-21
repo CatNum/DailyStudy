@@ -41,7 +41,7 @@ typedef struct dict {
 redisDb 即数据库对象，指向了数据字典，字典里包含了我们平常存储的 k-v 数据，k 是字符串对象，value 支持任意 Redis 对象。
 
 整体结构图如下：
-![img.png](picture/3）1.1-1.png)
+![img.png](pictures/3）1.1-1.png)
 
 #### 1.2 常见操作
 
@@ -51,7 +51,7 @@ redisDb 即数据库对象，指向了数据字典，字典里包含了我们平
 
 比如，如果我们使用命令：SET hellomsg "hello mart"，键空间会变成如下结构。
 
-![img_1.png](picture/3）1.2.1-1.png)
+![img_1.png](pictures/3）1.2.1-1.png)
 
 ##### 1.2.2 查询数据
 
@@ -63,7 +63,7 @@ redisDb 即数据库对象，指向了数据字典，字典里包含了我们平
 
 举个例子，使用命令 RPUSH animals bird，成功后得到的结构如下：
 
-![img.png](picture/3）1.2.3-1.png)
+![img.png](pictures/3）1.2.3-1.png)
 
 ##### 1.2.4 删除数据
 
@@ -71,7 +71,7 @@ redisDb 即数据库对象，指向了数据字典，字典里包含了我们平
 
 DEL scoredic，成功之后的结构会如下：
 
-![img.png](picture/3）1.2.4-1.png)
+![img.png](pictures/3）1.2.4-1.png)
 
 #### 1.3 过期键
 
@@ -79,7 +79,7 @@ DEL scoredic，成功之后的结构会如下：
 
 假设上面例子的 Key，都设置了过期时间，那么其结构如下：
 
-![img.png](picture/3）1.3-1.png)
+![img.png](pictures/3）1.3-1.png)
 
 注意，这里的 dict 中和 expires 中 Key 对象，实际都是存储的 String 对象指针（也就是 dict 里面的元素是字符串对象的地址），
 所以并不是会重复占用内容，Redis 对内存的使用都是很珍惜的。
@@ -161,13 +161,13 @@ Redis 的定位，是内存 k-v 存储，是做**短平快的热点数据处理*
 又引入了多线程解决提升网络 I/O 的性能。
 
 下面我们看一下 Redis 多线程的设计思路，如下图。
-![img_1.png](picture/3）3-1.png)
+![img_1.png](pictures/3）3-1.png)
 
 再详细一点， 如下图：
 
-![img.png](picture/3）3-2.png)
+![img.png](pictures/3）3-2.png)
 
-![img.png](picture/3）3-3.png)
+![img.png](pictures/3）3-3.png)
 
 > [多线程是怎么回事（需要了解）](https://ls8sck0zrg.feishu.cn/wiki/wikcniustSxgJNYcpCQZnjsiEUf "多线程是怎么回事（需要了解）")
 
@@ -202,9 +202,9 @@ Redis 支持多种淘汰策略，大的方向有两个。
 这四种策略，可以选择时 volatile，也就是设置了过期时间的 Key，或者是 allkeys，即全部的 Key，所以一共有 8 种淘汰方式。
 
 
-![img.png](picture/3）4.2-1.png)
+![img.png](pictures/3）4.2-1.png)
 
-![3）4.2-2.png](picture/3）4.2-2.png)
+![3）4.2-2.png](pictures/3）4.2-2.png)
 
 ### 4.3 选择哪种淘汰算法
 
@@ -275,7 +275,7 @@ LFU 淘汰算法：即Least Frequently Used，**最不频繁淘汰算法**，顾
 
 LRU 本身已经能解决大部分问题，但是脱离频率，只谈最近访问，在部分场景是得不到我们希望的结果，比如：
 
-![img.png](picture/3）6.1-1.png)
+![img.png](pictures/3）6.1-1.png)
 
 如上所示，key niuniu 频率很高，key mart 虽然是最近访问的，但是实际频率低(我们假设没有其他 key 的干扰)，如果内存满了，会淘汰 key niuniu
 
@@ -292,7 +292,7 @@ LRU 本身已经能解决大部分问题，但是脱离频率，只谈最近访�
 Redis 在 LFU 策略下复用 lru 字段，还是用它来表示 LFU 的信息，不过将 24 拆解，
 高 16bit 存储 ldt(Last Decrement Time)，低 8bit 存储 logc(Logistic Counter)
 
-![img.png](picture/3）6.2-1.png)
+![img.png](pictures/3）6.2-1.png)
 
 如图所示，高的 16 位保存了上次访问时间戳，因为少了 8 位，所以 LFU 下时间精度是 1 分钟，
 不然用秒的话 2^16 次方只能表示 65536 秒（大约 18 小时），后 8 位存储的是一个访问计数。

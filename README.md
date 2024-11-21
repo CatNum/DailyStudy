@@ -45,15 +45,17 @@
     |-linux.md                              # linux知识
     |-the_odd_go.md                         # Go奇技淫巧
 |—technology                            # 技术：涉及到的相关技术，如mongodb等
+    |-Etcd                                  # Etcd
     |-MongoDB                               # MongoDB
     |-MySQL                                 # MySQL
         |-article                                 # 专项文章，专门针对某个细节写的文章
         |-picture                                 # 图片
     |-Redis                                 # Redis
+    |-Protobuf                              # Protobuf
 |—utils                                 # 工具：日常使用的一些工具
     |-apidoc.md                             # apidoc
     |-docker.md                             # docker
-    |-git.md                                # git
+    |-Git                                   # Git
 |—wheels                                # 轮子：使用的开发框架和组件，如gorm等
     |-go                                    # go标准库
     |-gorm.md                               # gorm
@@ -75,6 +77,9 @@
 - [ ] MySQL redo log 持久化与 WAL 机制的前因后果
 - [ ] 协程池实现研究
 
+- MySQL TODO
+- [ ] MySQL 之 WAL 技术 
 
 - QUESTION
+- 
 

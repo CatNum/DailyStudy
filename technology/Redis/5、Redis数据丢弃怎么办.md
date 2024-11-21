@@ -28,7 +28,7 @@ RDB 是快照恢复，AOF 是日志恢复，这是两者本质区别，我们甚
 - 缓存数据且并不是一个海量访问：可以不用开持久化
 - 对数据非常重视：可以同时开启 RDB 和 AOF。
 
-![img.png](picture/5）1.3-1.png)
+![img.png](pictures/5）1.3-1.png)
 
 AOF 默认关闭，如果开启 AOF，Redis 恢复的时候就会采用 AOF 进行恢复，如果此时没有 AOF 文件，也不会采用 RDB 文件进行恢复，
 但是我们可以手动采用 RDB 进行恢复。
@@ -116,11 +116,11 @@ Redis 持久化会在下面三种情况下进行：
 具体而言：fork 创建子进程之后，通过写时复制技术，子进程和父进程是共享同一片内存数据的，因为创建子进程的时候，
 会复制父进程的页表，但是页表指向的物理内存还是一个。
 
-![img.png](picture/5）2.4-1.png)
+![img.png](pictures/5）2.4-1.png)
 
 只有在发生修改内存数据的情况时，物理内存才会被复制一份。
 
-![img_1.png](picture/5）2.4-2.png)
+![img_1.png](pictures/5）2.4-2.png)
 
 就是这样，Redis 使用 bgsave 对当前内存中的所有数据做快照，这个操作是由 bgsave 子进程在后台完成的，
 **执行时不会阻塞父进程中的主线程，这就使得主线程同时可以修改数据。**
@@ -151,7 +151,7 @@ appendonly 设置为 yes，即可打开 AOF。
 
 从上面的描述，我们可以看出，执行请求时，每条日志都会写入到 AOF。
 
-![img.png](picture/5）3.1-1.png)
+![img.png](pictures/5）3.1-1.png)
 
 Redis 提供的 3 种刷盘策略，以便根据需要进行不同的选择。
 
@@ -159,7 +159,7 @@ Redis 提供的 3 种刷盘策略，以便根据需要进行不同的选择。
 - appendfsync everysec：**每秒刷一次盘**，用官方的话来说就是足够快了，但是在崩溃场景下你可能会丢失 1 秒的数据。
 - appendfsync no：**不主动刷盘，让操作系统自己刷**，一般情况 Linux 会每 30 秒刷一次盘，这种策略下，可以说对性能的影响最小，但是如果发生崩溃，可能会丢失相对比较多的数据
 
-![img.png](picture/5）3.1-2.png)
+![img.png](pictures/5）3.1-2.png)
 
 ### 3.2 写入 AOF 细节
 
@@ -182,7 +182,7 @@ Redis 提供的 3 种刷盘策略，以便根据需要进行不同的选择。
 - 如果是 AOF_FSYNC_EVERYSEC 策略，满足条件后会用 aof_background_fsync 使用后台线程异步刷盘。
 
 一个相对宏观的完整写入示意图：
-![img.png](picture/5）3.2-1.png)
+![img.png](pictures/5）3.2-1.png)
 
 ### 3.3 AOF 重写
 
@@ -198,7 +198,7 @@ Redis 可以在 AOF 文件体积变得过大时，自动地在后台 Fork 一个
 在重写过程中，Redis 不但将新的操作记录在原有的 AOF 缓冲区，而且还会记录在 AOF 重写缓冲区。
 一旦新 AOF 文件创建完毕，Redis 就会将重写缓冲区内容，追加到新的 AOF 文件，再用新 AOF 文件替换原来的 AOF 文件。
 
-![img.png](picture/5）3.3-1.png)
+![img.png](pictures/5）3.3-1.png)
 
 AOF 重写条件也是配置决定，默认如下，同时满足这两个条件则重写。
 
@@ -252,7 +252,7 @@ redis 配置文件：aof-use-rdb-preamble。5.0 之后默认是打开的，所�
 混合持久化还是属于 AOF，所以如果有混合持久化，那肯定是优先使用混合持久化的数据。
 
 完整的具体加载流程如下：
-![img.png](picture/5）3.5.3-1.png)
+![img.png](pictures/5）3.5.3-1.png)
 
 ### 3.6 AOF 优化-MP 方案(不要求看，但面试可以吹，Redis 7.0 优化)
 
@@ -264,7 +264,7 @@ AOF 重写功能都显得比较粗糙，这也是正常的，持久化作为一�
 
 我们详细分析下原有的方案：
 
-![img.png](picture/5）3.6.1-1.png)
+![img.png](pictures/5）3.6.1-1.png)
 
 优势：
 - 方案容易想到，前期快速实现
@@ -294,7 +294,7 @@ MP-AOF，全称 Multi Part AOF，也就是多部 件AOF，通俗点说就是原�
 原来是一个 AOF 文件，里面包含了操作的命令记录，MP-AOF 则是提出了 BASE AOF 和 INCR AOF 两种文件的组合，一个 BASE AOF 结合 INCR AOF，一起来表示所有的操作命令。
 
 我们来看看这种新模型下的流程：
-![img.png](picture/5）3.6.2-1.png)
+![img.png](pictures/5）3.6.2-1.png)
 
 现在在重写阶段：
 - 在主进程中写 AOF 缓冲区即可，AOF 缓冲区的数据最终落入新打开的 2.INCR AOF 文件，
@@ -306,11 +306,11 @@ MP-AOF，全称 Multi Part AOF，也就是多部 件AOF，通俗点说就是原�
 
 这里为了给大家加深印象，也额外说下，上面的 1.INCR.AOF，2.BASE.AOF 只是为了方便描述和记忆，他的名字其实不是这个，实际的名字长这样子：
 
-![img.png](picture/5）3.6.2-2.png)
+![img.png](pictures/5）3.6.2-2.png)
 
 至于 manifest 里面的内容，实际是长这样子：
 
-![img_1.png](picture/5）3.6.2-3.png)
+![img_1.png](pictures/5）3.6.2-3.png)
 
 > PS：appendonly.aof.1.base.rdb 是因为 7.0 默认开启了混合持久化，所以 base 后缀是 rdb，这里不冲突，不开启他就还是 aof。
 

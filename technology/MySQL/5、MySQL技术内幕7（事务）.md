@@ -73,7 +73,7 @@ InnoDB 允许用户**手工设置非持久性**的情况发生。参数 innodb_f
 - 值为 0：事务提交时不进行写入 redo 日志的操作，仅在 **master thread 中每秒执行一次。**
 - 值为 2：事务提交时将重做日志写入重做日志文件，但**仅写入文件系统的缓存中，不进行 fsync 操作。** 这个设置下，数据库宕机不会导致事务丢失，但是操作系统宕机会丢失。
 
-![不同 innodb_flush_log_at_trx_commit 设置对于插入的速度影响](picture/5）7.2.1-1.png)
+![不同 innodb_flush_log_at_trx_commit 设置对于插入的速度影响](pictures/5）7.2.1-1.png)
 
 造成这个现象的**主要原因**就是：**大大减少了 fsync 的次数，从而提高了数据库的性能。**
 
@@ -98,11 +98,11 @@ redo log 日志除了日志本身信息外，还包括日志块头（12 字节�
 
 有一个 log group 的概念，是一个逻辑上的概念。由多个重做日志文件组成。
 
-![log group 与 redo file 之间的关系](picture/5）7.2.1-2.png)
+![log group 与 redo file 之间的关系](pictures/5）7.2.1-2.png)
 
 每个 log group 的第一个 redo log file 会存储一些其他信息（2KB），非第一个 redo log file 会留下 2KB 的空间，但是不会存储这些数据，具体如下：
 
-![img.png](picture/5）7.2.1-3.png)
+![img.png](pictures/5）7.2.1-3.png)
 
 正因为保存了这些信息，就意味着对 redo log file 的**写入并不是完全顺序的**，因为需要更新这个数据。
 
@@ -112,7 +112,7 @@ redo log 日志除了日志本身信息外，还包括日志块头（12 字节�
 - space：表空间 ID。
 - page_on：页的偏移量。
 
-![重做日志格式](picture/5）7.2.1-4.png)
+![重做日志格式](pictures/5）7.2.1-4.png)
 
 LSN（Log Sequence Number），代表的是日志序列号，代表的含义有：
 
