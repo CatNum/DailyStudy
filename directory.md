@@ -1,19 +1,19 @@
 # Directory Structure
 ```
 └─ DailyStudy                                                                    # No comment provided
-    └─ basic                                                                     # No comment provided
-        |- markdown.md                                                                    #  [ ] 复选框语法
+    └─ basic                                                                       # 基础：存放基础语法及文件编写的模板
+        |- markdown.md                                                               # md文件基础语法（不常见用法）
         |- template.md                                                                # # 一、如何设计友好的标识符
     |- changeCommit.sh                                                              #  changeCommit.sh
     └─ computer_installation                                                            # 硬件相关、包括电脑安装等
         |- memory.md                                                                #  [装机 | 配置升级] 内存篇
     |- directory.md                                                             #  Directory Structure
     |- generate_structure.sh                                                              # !/bin/bash
-    └─ ideas                                                                             # 关于技术和产品上的想法
+    └─ ideas                                                                         # 想法、思考：不能成文、篇幅小的
         |- 1、technology_ideas.md                                                 # No comment provided
         |- 2、product_ideas.md                                                    # No comment provided
     |- LICENSE                                                                            # IT License
-    └─ miscellaneous_remarks                                                            # 杂谈，主要是包含一些文章
+    └─ miscellaneous_remarks                                                            # 杂谈：包括一些文章和博文
         └─ essay                                                                                  # 文章
             └─ cloud_native                                                                      # 云原生
                 |- 1、云原生环境安装.md                                                  # No comment provided
@@ -48,14 +48,14 @@
         |- How_To_Ask_Question.md         # 原文地址](https://github.com/selfteaching/How-To-Ask-Questions-The-Smart-Way) | 
         |- How_To_Clean_Code.md                                                  # No comment provided
     └─ other                                                                                      # 其它
-        └─ computer_usage_tips                                                                # 电脑使用贴士
+        └─ computer_usage_tips                                                                # 电脑使用技巧
             |- 1、长时间使用电脑如何防止眼睛干涩.md                                 # # 一、长时间使用电脑如何防止眼睛干涩（Windows暗夜模式）
         |- notesoft.md                                                                       #  效率软件选择
-    └─ project                                                                                    # 项目
+    └─ project                                                                               # 项目：项目示例
         |- main.go                                                                       # ackage main
     |- README.md                                                                         #  DailyStudy
     |- rename.sh                                                                            # !/bin/sh
-    └─ skill_and_experience                                                                    # 技能和经验
+    └─ skill_and_experience                                                # 技巧和经验：go的使用技巧和一些日常总结的使用经验
         └─ design_pattern                                                                       # 设计模式
             |- 1、函数选型模式.md                                                                # # 一、函数选项模式
             |- 2、单例模式.md                                                                    # # 一、单例模式
@@ -66,13 +66,13 @@
             |- go项目经验.md                                                                  # # 1、抽离公共方法
             |- mongodb查询优化.md                                                # # 1. MongoDB 大数据量分页查询优化
         |- linux.md                                                                   # ### Ubuntu 的安装
-        └─ standard                                                                 # 标准，包含编码标准、提交标准等等
+        └─ standard                                                      # 一些标准（提交、代码编写之前、代码编写、项目规划组织）
             |- 1、commit_standard.md                                                            #  what
             |- 2、go_code_standard.md                                                #  一、如何写出优雅的Go语言代码
             |- 3、pre_code_standard.md                                                           # # 前言
             |- 4、project_standard.md                                                            # # 前言
         |- the_odd_go.md                       # 突破go包结构访问权限，访问其它Go包中的私有函数](https://colobu.com/2017/05/12/call-private-functions-in-other-packages/)
-    └─ technology                                                                                 # 技术
+    └─ technology                                                              # 技术：涉及到的相关技术，如mongodb等
         └─ Etcd                                                                                 # ETCD
             |- 1、Etcd 快速入门（官方文档）.md                                                    # # 一、Etcd 快速入门
             |- 2、Etcd 如何读取数据.md                                                  # No comment provided
@@ -95,7 +95,7 @@
             |- 7-3、MySQL性能优化之SQL优化.md                                           # # 一、MySQL 性能调优之SQL优化
             |- 7-3、MySQL性能优化之连接池.md                                               # # 一、MySQL 性能调优之连接池
             |- 7-4、MySQL性能优化.md                                                       # # 一、MySQL 性能调优
-            └─ article                                                                            # 文章
+            └─ article                                                             # 专项文章，专门针对某个细节写的文章
                 |- 1、MySQL索引之or到底走不走索引.md                                        # No comment provided
                 |- 2、一文讲穿MySQL.md                                                # No comment provided
             └─ MySQL 知识精炼                                                                 # MySQL 知识精炼
@@ -114,7 +114,7 @@
             |- 5、Redis数据丢弃怎么办.md                                                   # # 一、Redis 数据丢失怎么办
             |- 6、场景应用.md                                                        # # 一、场景应用（重点是缓存和分布式锁）
             |- redis.md                                                                  #  Redis 使用优化
-    └─ utils                                                                                      # 工具
+    └─ utils                                                                            # 工具：日常使用的一些工具
         |- apidoc.md                                                               #  [apidoc 的使用](#1)
         |- cursor.md                                                             # No comment provided
         |- dlv+goland远程调试.md                                                      #  dlv + Goland 远程调试
@@ -124,7 +124,7 @@
             |- 7.11 Git Submodule.md                                             # No comment provided
             |- git.md                      # git中的各种撤销操作](https://segmentfault.com/a/1190000011910766)
         |- git.md                          # git中的各种撤销操作](https://segmentfault.com/a/1190000011910766)
-    └─ wheels                                                                                 # 轮子：工具库
+    └─ wheels                                                                   # 轮子：使用的开发框架和组件，如gorm等
         |- 1、gorm.md                                                            #  [1.使用gorm的前置条件](#1)
         |- 2、msgp.md                                                                         #  msgp 库
         |- 3、wire.md                                                             # No comment provided
@@ -135,7 +135,7 @@
         |- gorm.md                                                              #  [1.使用gorm的前置条件](#1)
         |- msgp.md                                                                           #  msgp 库
         |- wire.md                                                               # No comment provided
-    └─ work_and_project_summary                                                              # 工作及项目总结
+    └─ work_and_project_summary                                           # 工作和项目总结：以月和项目为单位总结自己的学习和成果
         └─ 2022                                                                  # No comment provided
             |- 2209-2305.md                                                      # No comment provided
         └─ 2023                                                                  # No comment provided
