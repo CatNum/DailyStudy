@@ -76,10 +76,16 @@
 - [ ] GO Sync.Map 状态机的思考
 - [ ] MySQL redo log 持久化与 WAL 机制的前因后果
 - [ ] 协程池实现研究
+- [ ] 
+
 
 - MySQL TODO
 - [ ] MySQL 之 WAL 技术 
 
+
 - QUESTION
 - 
 
+
+- 待读 TODO 
+- [ ] [什么是云原生数据库？](https://zhuanlan.zhihu.com/p/383565950 "什么是云原生数据库？")从技术架构演进过程来看，2003至2006年，Google发布了关于Google File System、MapReduce和BigTable三篇海量数据存储、处理技术论文，奠定了今天大数据的整个技术生态圈的基石。
