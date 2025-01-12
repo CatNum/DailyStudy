@@ -22,6 +22,38 @@ func main() {
    - 正常 `return`
    - `panic`（会执行 `panic` 之前的所有 `defer`，然后引发崩溃）
    - 主动调用 `os.Exit(int)` 退出进程时，`defer` 将不再被执行。
+5. 延迟函数的**参数**在 defer 语句出现时就已确定下来（传值的就是当前值）。**注意：前提是有参数**。
+6. 如果 defer 的函数为 nil，则会 panic。
+
+```go
+// 对于第五点
+package main
+
+import "fmt"
+
+func main() {
+
+   a := 1
+
+   defer fmt.Println(1, a)  // 取当前值，这里我不太理解到底相当于什么，如何做到的当前值
+
+   a++
+
+   defer func() {
+      fmt.Println(2, a) // 无参数，闭包
+   }()
+
+   a++
+
+   defer func(a int) {
+      fmt.Println(3, a) // 取参数的当前值
+   }(a)
+
+   a++
+   
+}
+
+```
 
 ## 2、defer 的应用
 
@@ -35,7 +67,7 @@ func main() {
 
 - **性能分析**：用于统计函数执行时间或其他性能相关数据，例如在函数开始和结束时记录时间戳。
 
-## 3、前置知识 —— 深入了解为什么会造成defer的坑
+## 3、前置知识 —— 深入了解为什么会造成 defer 的坑
 
 在讲解`defer`使用中的坑之前，需要一些铺垫知识。我们先讲解一下**匿名返回值**与**命名返回值**，以及 **`return`的执行**。
 
@@ -71,14 +103,39 @@ func a() (x int) {
 
 对于命名返回值的 `return` 来说，第一步赋值操作会**更改已命名返回值变量的值**，对于该示例来说，即`x=i=1`。
 
-理解了这些前置知识，那么我们来看一看不同场景下的“坑”是怎么来的吧！
+### 3.4 闭包
 
+简单来说：闭包 = 匿名函数 + 引用环境。
+
+具体见[10、闭包.md](10、闭包.md)
+
+### 3.5 for range
+
+for range 在 1.22 之前，`for range` 循环中，返回的值是同一个地址。如下：
+```go
+package main
+
+import "fmt"
+
+func main() {
+	arr := [2]int{1, 2}
+	res := []*int{}
+	for _, v := range arr {
+		res = append(res, &v)
+	}
+	//expect: 1 2
+	fmt.Println(*res[0], *res[1])
+	//but output: 2 2
+}
+
+```
+
+理解了这些前置知识，那么我们来看一看不同场景下的“坑”是怎么来的吧！
 
 ## 4、defer 中的坑
 
-## 4.1 defer 结合匿名返回值
-
-## 4.1.1 结合匿名返回值
+### 4.1 defer 结合匿名返回值
+#### 4.1.1 结合匿名返回值
 
 ```go
 func main() {
@@ -100,7 +157,7 @@ func a() int {
 2. 执行`defer i++`
 3. 返回临时变量`x = 0`
 
-### 4.1.2 结合引用类型
+#### 4.1.2 结合引用类型
 
 ```go
 func main() {
@@ -122,9 +179,8 @@ func a() *int {
 2. 执行`defer i++`
 3. 返回变量`x = &i = 0xc00000a0c8`
 
-## 4.2 defer 结合命名返回值
-
-### 4.2.1 结合命名返回值
+### 4.2 defer 结合命名返回值
+#### 4.2.1 结合命名返回值
 
 ```go
 func main() {
@@ -145,7 +201,7 @@ func a() (x int) {
 2. 执行`defer x++`（这里改变的是`x`的内存地址中存储的数值）
 3. 返回变量`x = x = 1`
 
-### 4.2.2 结合局部变量
+#### 4.2.2 结合局部变量
 
 ```go
 func main() {
@@ -167,7 +223,7 @@ func a() (x int) {
 2. 执行`defer i++`
 3. 返回变量 `x = 0`
 
-### 4.2.2 结合defer局部变量
+#### 4.2.3 结合 defer 局部变量
 
 ```go
 func main() {
@@ -191,14 +247,123 @@ func a() (x int) {
 3. 返回变量 `x = 0`
 
 
+#### 4.2.4 defer 结合闭包
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	a := 1
+
+	fmt.Println(&a) // 0xc00000e0a8
+
+	defer fmt.Println(1, &a, a) // 1 0xc00000e0a8 1 这里有点不知道是怎么实现的.明明地址是一块,但是最后输出的值不是最新的
+
+	a++
+
+	defer func() {
+		fmt.Println(2, a) // 2 4 闭包
+	}()
+
+	a++
+
+	defer func(a int) {
+		fmt.Println(3, a) // 3 3
+	}(a)
+
+	fmt.Println(&a) // 0xc00000e0a8
+
+	a++
+}
+```
+
+#### 4.2.5 defer 结合 for range
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	aa := []int{1, 2, 3}
+   
+	for _, v := range aa {
+		defer fmt.Println(v)
+	}
+
+	defer fmt.Println("----------------------------------")
+
+	for _, v := range aa {
+		defer func() {
+			fmt.Println(v)
+		}()
+	}
+}
+```
+
+
+## 5、小练习
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(test1())
+	fmt.Println(test2())
+	fmt.Println(test3())
+	fmt.Println(test4())
+}
+
+func test1() (result int) {
+	defer func() {
+		result++
+	}()
+	return 0
+}
+
+func test2() (r int) {
+	t := 5
+	defer func() {
+		t = t + 5
+	}()
+	return t
+}
+
+func test3() (r int) {
+	defer func(r int) {
+		r = r + 5
+	}(r)
+	return 1
+}
+
+func test4() (r int) {
+	defer func() {
+		r = r + 5
+	}()
+	return 1
+}
+```
+
 > 参考链接：
-> 
+>
 > [3.4 defer关键字](https://tiancaiamao.gitbooks.io/go-internals/content/zh/03.4.html "3.4 defer关键字")
-> 
+>
 > [Golang defer详解](https://zhuanlan.zhihu.com/p/621817134 "Golang defer详解")
-> 
+>
 > [Golang return操作深入理解](https://blog.csdn.net/qq_14997473/article/details/116449166 "Golang return操作深入理解")
-> 
+>
 > [Go的匿名返回值和命名返回值](https://yunsonbai.top/2022/01/12/go-return/ "Go的匿名返回值和命名返回值")
-> 
+>
 > [go语言中匿名返回值和命名返回值对defer的影响](https://blog.csdn.net/MrQkeil/article/details/104359630 "go语言中匿名返回值和命名返回值对defer的影响")
+>
+> [golang的defer踩坑汇总](https://www.cnblogs.com/phpper/p/16389393.html "golang的defer踩坑汇总")
+>
+> [深入理解Go语言中的闭包](https://juejin.cn/post/7140664403996868615 "深入理解Go语言中的闭包")
+>
+> [Dig101 - Go之for-range排坑指南](https://zhuanlan.zhihu.com/p/105435646 "Dig101 - Go之for-range排坑指南")
+
