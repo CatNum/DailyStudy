@@ -22,7 +22,9 @@ func main() {
    - 正常 `return`
    - `panic`（会执行 `panic` 之前的所有 `defer`，然后引发崩溃）
    - 主动调用 `os.Exit(int)` 退出进程时，`defer` 将不再被执行。
-5. 延迟函数的**参数**在 defer 语句出现时就已确定下来（传值的就是当前值）。**注意：前提是有参数**。
+5. 延迟函数的**参数**在 defer 语句出现时就已确定下来（传值的就是当前值）。
+   - 注意：defer 后加匿名函数时，拷贝的是函数指针。
+   - 会通过开辟新内存空间进行存储当前值。
 6. 如果 defer 的函数为 nil，则会 panic。
 
 ```go
@@ -35,7 +37,7 @@ func main() {
 
    a := 1
 
-   defer fmt.Println(1, a)  // 取当前值，这里我不太理解到底相当于什么，如何做到的当前值
+   defer fmt.Println(1, a)  // 取当前值
 
    a++
 
@@ -260,7 +262,7 @@ func main() {
 
 	fmt.Println(&a) // 0xc00000e0a8
 
-	defer fmt.Println(1, &a, a) // 1 0xc00000e0a8 1 这里有点不知道是怎么实现的.明明地址是一块,但是最后输出的值不是最新的
+	defer fmt.Println(1, &a, a) // 1 0xc00000e0a8 1
 
 	a++
 
