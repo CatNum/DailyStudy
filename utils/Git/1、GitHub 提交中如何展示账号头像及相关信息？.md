@@ -1,8 +1,9 @@
 ## 一、GitHub 提交中如何展示账号头像及相关信息？
 
     在 GitHub 上，我们提交代码时，提交会带上我们的 git 配置用户名及邮箱，但是 GitHub 的提交是不会校验提交是由哪个账号用户提交的，所以如果没有相应的配置，
+
 在仓库的提交记录中，会出现很多的小灰头像。
-    如下所示：
+如下所示：
 
 ![1-1.png](pictures/1-1.png)
 
@@ -23,22 +24,25 @@ GitHub 的账号是通过 邮箱来进行绑定的。
 即 `GIT_COMMITTER_NAME ` 和 `GIT_AUTHOR_NAME`
 
 (1) GIT_AUTHOR_NAME
+
 - 作者（Author）：代表最初编写提交内容的人。
 - 用途：用于记录是谁创建了提交的内容。
 - 场景：
-  - 一般情况下，作者是当前实际撰写代码并执行 git commit 的用户。
-  - 如果你基于别人的补丁或代码提交内容再提交（例如 git am 应用补丁或修改历史），可以通过设置 GIT_AUTHOR_NAME 来指定实际作者。
+    - 一般情况下，作者是当前实际撰写代码并执行 git commit 的用户。
+    - 如果你基于别人的补丁或代码提交内容再提交（例如 git am 应用补丁或修改历史），可以通过设置 GIT_AUTHOR_NAME 来指定实际作者。
 
-(2) GIT_COMMITTER_NAME 
+(2) GIT_COMMITTER_NAME
+
 - 提交者（Committer）：代表实际在版本库中创建此提交的人。
 - 用途：用于记录是谁执行了提交操作。
 - 场景：
-  - 一般情况下，提交者和作者是同一个人。
-  - 但在某些操作（例如 git rebase、git cherry-pick 或 git commit --amend）中，提交者可能不同于作者，因为这些操作会修改提交历史，提交操作本身是由当前用户完成的。
+    - 一般情况下，提交者和作者是同一个人。
+    - 但在某些操作（例如 git rebase、git cherry-pick 或 git commit --amend）中，提交者可能不同于作者，因为这些操作会修改提交历史，提交操作本身是由当前用户完成的。
 
 ### 2、如何修改历史提交中的用户名和邮箱？
 
 脚本如下：
+
 ```shell
 #!/bin/sh
 
@@ -78,10 +82,10 @@ git 提供了根据文件夹来设置用户名和邮箱的功能，我们只需�
 
 ### 3、如何根据文件夹设置用户名和邮箱？
 
-
 #### 3.1 Git 配置文件层级
 
 git 分为三个层级的配置：
+
 - 系统层级: /etc/gitconfig，作用于系统中每位用户的 Git 配置。
 - 用户层级: ~/.gitconfig，作用于具体用户的 Git 配置。
 - 项目层级: .git/config，作用于具体仓库，只对该仓库有效。
@@ -91,12 +95,14 @@ git 分为三个层级的配置：
 通过设置该配置项，可以向满足条件的仓库使用指定的配置文件。
 
 语法如下：
+
 ```shell
 [includeIf "<keyword>:<data>"]
   path = path/to/gitconfig
 ```
 
 其中支持的 keyword 关键词有gitdir、gitdir/i、onbranch：
+
 - gitdir: 如果仓库的路径符合该条件，则使用该配置文件；
 - gitdir/i：gitdir 的大小写不敏感版本。
 - onbranch：如果仓库的分支符合该条件，则使用该配置文件。
@@ -111,7 +117,42 @@ git 分为三个层级的配置：
 然后在 GitHub 目录下添加一个 .gitconfig 文件，里面配置好用户名和邮箱，就可以了。
 
 注意：
+
 - includeIf "gitdir:~/GitHub/" 中 gitdir: 后不能有任何除路径之外的任何字符，包括空格。
 
 更改完之后，可以使用 `git config --list --show-origin` 来查看是否配置成功
 
+Windows 下，全量 .gitconfig 可以在 C:\Users\xxx\.gitconfig 中找到。如下：
+```shell
+[user]
+	email = xxx@asants.com
+	name = xxx
+[url "ssh://git@gitlab.xxx.com"]
+	insteadOf = https://gitlab.asants.com
+[http]
+	sslVerify = false
+[core]
+	quotepath = false
+[diff]
+	submodule = log
+[gui]
+	encoding = utf-8
+[i18n "commit"]
+	encoding = utf-8
+[i18n]
+	logoutputencoding = utf-8
+[credential "https://1.1.1.1:3000"]
+	provider = generic
+[includeIf "gitdir:D:/GoProjects/GitHub/"]
+    path = D:/GoProjects/GitHub/.gitconfig
+[includeIf "gitdir:D:/GoProjects/GitBook/"]
+    path = D:/GoProjects/GitBook/.gitconfig
+```
+
+更改 git 用户名和邮箱仅需设置下面的配置：
+
+```shell
+[user]
+	email = xxx@gmail.com
+	name = yys
+```
