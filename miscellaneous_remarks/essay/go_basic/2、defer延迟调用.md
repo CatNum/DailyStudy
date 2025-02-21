@@ -263,12 +263,14 @@ func main() {
 
 	fmt.Println(&a) // 0xc00000e0a8
 
+    // 关键点1: 此时立刻求值参数中的 &a 和 a
 	defer fmt.Println(1, &a, a) // 1 0xc00000e0a8 1
 
 	a++
 
+    // 关键点2: 闭包捕获的是变量 a 的引用
 	defer func() {
-		fmt.Println(2, a) // 2 4 闭包
+		fmt.Println(2, a) // 2 4 闭包。执行时获取最终值
 	}()
 
 	a++
