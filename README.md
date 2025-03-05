@@ -79,6 +79,7 @@
 - [ ] 
 - [ ] 国内微信和国外微信用户通信，需要vpn吗？
 - [ ] golang 监控：Loki（日志）、Grafana（性能监控）
+- [ ] [golangci-lint](https://golangci-lint.run/ "golangci-lint") 
 
 
 - MySQL TODO
